@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Fhy" />
+
+
+
+<meta name="description" content="用c/c++为php编写动态链接库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用c++为php编写扩展">
+<meta property="og:url" content="http://aiti.me/2016/12/08/用c-为php写扩展/index.html">
+<meta property="og:site_name" content="Fhy的博客">
+<meta property="og:description" content="用c/c++为php编写动态链接库">
+<meta property="og:updated_time" content="2017-01-03T02:01:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用c++为php编写扩展">
+<meta name="twitter:description" content="用c/c++为php编写动态链接库">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Fhy的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>用c++为php编写扩展 | Fhy的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+
+<!-- PJAX -->
+
+    <!-- Pjax -->
+<script src="//cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script>
+    $(document).pjax('a[target!=_blank]', '.body-wrap', {
+        fragment: '.body-wrap',
+        timeout: 5000,
+    });
+    $(document).pjax('a[target!=_blank]', '.left-col', {
+        fragment: '.left-col',
+        timeout: 5000,
+    });
+	$(document).on('pjax:complete', function() { // 加载各种类
+		pajx_loadDuoShuo();
+		load_tag_color();
+		use_fancybox();
+	});
+	function use_fancybox() {
+		require(['//cdn.bootcss.com/fancybox/2.1.4/jquery.fancybox.js'], function(pc){
+			var isFancy = $(".isFancy");
+			if(isFancy.length == 1){
+				var imgArr = $(".article-inner img");
+				for(var i=0,len=imgArr.length;i<len;i++){
+					var src = imgArr.eq(i).attr("src");
+					var title = imgArr.eq(i).attr("alt");
+					imgArr.eq(i).replaceWith("<a href='"+src+"' title='"+title+"' rel='fancy-group' class='fancy-ctn fancybox'><img src='"+src+"' title='"+title+"'></a>");
+				}
+				// $(".article-inner .fancy-ctn").fancybox();
+			}
+		});
+
+	}
+	function pajx_loadDuoShuo(){
+		var dus=$(".ds-thread");
+	    if($(dus).length==1){
+			var el = document.createElement('div');
+			el.setAttribute('data-thread-key',$(dus).attr("data-thread-key"));//必选参数
+			el.setAttribute('data-url',$(dus).attr("data-url"));
+			DUOSHUO.EmbedThread(el);
+			$(dus).html(el);
+	    }
+	}
+	function load_tag_color() {
+		$(".body-wrap .article").css("opacity", 1);
+		require(['/js/pc.js'], function(pc){
+			pc.init();
+			isPCInit = true;
+		});
+	}
+</script>
+
+
+
+
+    
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fhy</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">我们要有最朴素的生活，与最遥远的梦想 。即使明日天寒地冻，路远马亡。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:fanhengyuan1994@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/fhy1994" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/fanhengyuan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/fanhengyuan/activities" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileupload/">fileupload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/first/">first</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文章/">文章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕淑敏/">毕淑敏</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.google.com.hk">Google</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://coding.net">Coding</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.zhangdii.cn">张迪</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.aiti.me">fhy&#39;s blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://codeanywhere.com">CodeAnyWhere</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fhy</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fhy</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">我们要有最朴素的生活，与最遥远的梦想 。即使明日天寒地冻，路远马亡。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:fanhengyuan1994@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/fhy1994" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/fanhengyuan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/fanhengyuan/activities" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-用c-为php写扩展" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/08/用c-为php写扩展/" class="article-date">
+      <time datetime="2016-12-08T02:52:40.000Z" itemprop="datePublished">2016-12-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      用c++为php编写扩展
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><excerpt in="" index="" |="" 首页摘要=""><br>用c/c++为php编写动态链接库<a id="more"></a></excerpt></p>
+<p><the rest="" of="" contents="" |="" 余下全文=""></the></p>
+<h2 id="u51C6_u5907_u5DE5_u4F5C_uFF1A"><a href="#u51C6_u5907_u5DE5_u4F5C_uFF1A" class="headerlink" title="准备工作："></a>准备工作：</h2><ol>
+<li>下载PHP源码 <a href="http://www.php.net/downloads" target="_blank" rel="external">http://www.php.net/downloads</a><br>由于博主的php版本为5.4比较老测试扩展时出现各种问题，故这里编译安装目前最新版 <code>php-7.1.0.tar.gz</code></li>
+<li>解压后，源码放到 <code>/root/source/php-7.1.0</code></li>
+<li>安装目录：<code>/usr/local/php7</code></li>
+<li>开始安装，配置 <code>/usr/local/php7/etc/php.ini</code> 的路径，方便以后进行个性化配置</li>
+<li>扩展名称：fhy</li>
+<li>扩展函数：fhy_say()，这个函数只返回一个”Hello world!” 字符串</li>
+<li>扩展可运行在 win32 系统，也运行在类unix系统，但是需要编译不同的文件，这里只介绍　GNU/Linux 下的操作。</li>
+</ol>
+<h2 id="u5F00_u59CB_u7F16_u5199_u6269_u5C55_uFF1A"><a href="#u5F00_u59CB_u7F16_u5199_u6269_u5C55_uFF1A" class="headerlink" title="开始编写扩展："></a>开始编写扩展：</h2><ol>
+<li><p>创建要实现的函数列表文件 <code>/root/source/fhy.proto</code> 内容如下：<br>使用ext_skel脚本加入 <code>--proto=/root/source/fhy.proto</code> 参数可直接构建所需函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">fhy_say</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用扩展骨架工具生成核心文件，命令如下：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ext]<span class="comment"># pwd</span></span><br><span class="line">/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext</span><br><span class="line">[root@localhost ext]<span class="comment"># ./ext_skel --extname=fhy --proto=/root/source/fhy.proto</span></span><br><span class="line">Creating directory fhy</span><br><span class="line">awk: /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/skeleton/create_stubs:<span class="number">56</span>: warning: escape sequence `\|<span class="string">' treated as plain `|'</span></span><br><span class="line">Creating basic files: config.m4 config.w32 .gitignore fhy.c php_fhy.h CREDITS EXPERIMENTAL tests/<span class="number">001</span>.phpt fhy.php [<span class="keyword">done</span>].</span><br><span class="line"></span><br><span class="line">To use your new extension, you will have to execute the following steps:</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>.  $ <span class="built_in">cd</span> ..</span><br><span class="line"><span class="number">2</span>.  $ vi ext/fhy/config.m4</span><br><span class="line"><span class="number">3</span>.  $ ./buildconf</span><br><span class="line"><span class="number">4</span>.  $ ./configure --[with|<span class="built_in">enable</span>]-fhy</span><br><span class="line"><span class="number">5</span>.  $ make</span><br><span class="line"><span class="number">6</span>.  $ ./sapi/cli/php <span class="operator">-f</span> ext/fhy/fhy.php</span><br><span class="line"><span class="number">7</span>.  $ vi ext/fhy/fhy.c</span><br><span class="line"><span class="number">8</span>.  $ make</span><br><span class="line"></span><br><span class="line">Repeat steps <span class="number">3</span>-<span class="number">6</span> until you are satisfied with ext/fhy/config.m4 and</span><br><span class="line">step <span class="number">6</span> confirms that your module is compiled into PHP. Then, start writing</span><br><span class="line">code and repeat the last two steps as often as necessary.</span><br></pre></td></tr></table></figure>
+<p>这时就在 ext 目录下出现了 fhy 文件夹，里面包含几个文件，如：config.m4 fhy.c  php_fhy.h 等等。</p>
+<p>3. 修改config.m4文件，内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">dnl <span class="variable">$Id</span>$</span><br><span class="line">dnl config.m4 <span class="keyword">for</span> extension fhy</span><br><span class="line"></span><br><span class="line">dnl Comments <span class="keyword">in</span> this file start with the string <span class="string">'dnl'</span>.</span><br><span class="line">dnl Remove <span class="built_in">where</span> necessary. This file will not work</span><br><span class="line">dnl without editing.</span><br><span class="line"></span><br><span class="line">dnl If your extension references something external, use with:</span><br><span class="line"></span><br><span class="line">dnl PHP_ARG_WITH(fhy, <span class="keyword">for</span> fhy support,</span><br><span class="line">dnl Make sure that the comment is aligned:</span><br><span class="line">dnl [  --with-fhy             Include fhy support])</span><br><span class="line"></span><br><span class="line">dnl Otherwise use <span class="built_in">enable</span>:</span><br><span class="line"></span><br><span class="line">dnl PHP_ARG_ENABLE(fhy, whether to <span class="built_in">enable</span> fhy support,</span><br><span class="line">dnl Make sure that the comment is aligned:</span><br><span class="line">dnl [  --enable-fhy           Enable fhy support])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">test</span> <span class="string">"<span class="variable">$PHP_FHY</span>"</span> != <span class="string">"no"</span>; <span class="keyword">then</span></span><br><span class="line">dnl <span class="variable">$Id</span>$</span><br><span class="line">dnl config.m4 <span class="keyword">for</span> extension fhy</span><br><span class="line"></span><br><span class="line">dnl Comments <span class="keyword">in</span> this file start with the string <span class="string">'dnl'</span>.</span><br><span class="line">dnl Remove <span class="built_in">where</span> necessary. This file will not work</span><br><span class="line">dnl without editing.</span><br><span class="line"></span><br><span class="line">dnl If your extension references something external, use with:</span><br><span class="line"></span><br><span class="line">dnl PHP_ARG_WITH(fhy, <span class="keyword">for</span> fhy support,</span><br><span class="line">dnl Make sure that the comment is aligned:</span><br><span class="line">dnl [  --with-fhy             Include fhy support])</span><br><span class="line"></span><br><span class="line">dnl Otherwise use <span class="built_in">enable</span>:</span><br><span class="line"></span><br><span class="line">PHP_ARG_ENABLE(fhy, whether to <span class="built_in">enable</span> fhy support,</span><br><span class="line">Make sure that the comment is aligned:</span><br><span class="line">[  --enable-fhy           Enable fhy support])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">test</span> <span class="string">"<span class="variable">$PHP_FHY</span>"</span> != <span class="string">"no"</span>; <span class="keyword">then</span></span><br><span class="line">  PHP_REQUIRE_CXX()    dnl 通知Make使用g++</span><br><span class="line">  PHP_ADD_LIBRARY(stdc++, <span class="number">1</span>, EXTRA_LDFLAGS)    dnl 加入C++标准库</span><br><span class="line">  PHP_NEW_EXTENSION(fhy, fhy.c, <span class="variable">$ext_shared</span>,, -DZEND_ENABLE_STATIC_TSRMLS_CACHE=<span class="number">1</span>)</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<p>这个文件中 dnl 是注释符，其之后的字串是解释上下文。</p>
+<p>修改 <code>fhy.c</code> 文件重名为 <code>fhy.cpp</code>（用c++嘛所以改成cpp了）</p>
+<p>4.1. 加入需要的C++ string 头文件，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include "php.h"</span></span><br><span class="line"><span class="comment">#include "php_ini.h"</span></span><br><span class="line"><span class="comment">#include "ext/standard/info.h"</span></span><br><span class="line"><span class="comment">#include "php_fhy.h"</span></span><br><span class="line"><span class="comment">#include &lt;string&gt; /*引入c++标准库*/</span></span><br></pre></td></tr></table></figure>
+<p>4.2. 修改 fhy_say 函数，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/* &#123;&#123;&#123; proto string fhy_say()</span><br><span class="line">    */</span><br><span class="line">PHP_FUNCTION(fhy_say)</span><br><span class="line">&#123;</span><br><span class="line">    std::string str = <span class="string">"Hello world!"</span>;</span><br><span class="line">    RETURN_STRINGL(str.c_str(), str.length());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>编译扩展（动态编译）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost fhy]<span class="comment"># pwd</span></span><br><span class="line">/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy</span><br><span class="line">[root@localhost fhy]<span class="comment"># /usr/local/php7/bin/phpize</span></span><br><span class="line">Configuring <span class="keyword">for</span>:</span><br><span class="line">PHP Api Version:         <span class="number">20160303</span></span><br><span class="line">Zend Module Api No:      <span class="number">20160303</span></span><br><span class="line">Zend Extension Api No:   <span class="number">320160303</span></span><br><span class="line">[root@localhost fhy]<span class="comment"># ./configure --with-php-config=/usr/local/php7/bin/php-config</span></span><br><span class="line">checking <span class="keyword">for</span> grep that handles long lines and -e... /usr/bin/grep</span><br><span class="line">checking <span class="keyword">for</span> egrep... /usr/bin/grep -E</span><br><span class="line">checking <span class="keyword">for</span> a sed that does not truncate output... /usr/bin/sed</span><br><span class="line">checking <span class="keyword">for</span> cc... cc</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking <span class="keyword">for</span> C compiler default output file name... a.out</span><br><span class="line">checking <span class="keyword">for</span> suffix of executables...</span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking <span class="keyword">for</span> suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether cc accepts -g... yes</span><br><span class="line">checking <span class="keyword">for</span> cc option to accept ISO C89... none needed</span><br><span class="line">checking how to run the C preprocessor... cc -E</span><br><span class="line">checking <span class="keyword">for</span> icc... no</span><br><span class="line">checking <span class="keyword">for</span> suncc... no</span><br><span class="line">checking whether cc understands -c and -o together... yes</span><br><span class="line">checking <span class="keyword">for</span> system library directory... lib</span><br><span class="line">checking <span class="keyword">if</span> compiler supports -R... no</span><br><span class="line">checking <span class="keyword">if</span> compiler supports -Wl,-rpath,... yes</span><br><span class="line">checking build system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking host system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking target system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking <span class="keyword">for</span> PHP prefix... /usr/<span class="built_in">local</span>/php7</span><br><span class="line">checking <span class="keyword">for</span> PHP includes... -I/usr/<span class="built_in">local</span>/php7/include/php -I/usr/<span class="built_in">local</span>/php7/include/php/main -I/usr/<span class="built_in">local</span>/php7/include/php/TSRM -I/usr/<span class="built_in">local</span>/php7/include/php/Zend -I/usr/<span class="built_in">local</span>/php7/include/php/ext -I/usr/<span class="built_in">local</span>/php7/include/php/ext/date/lib</span><br><span class="line">checking <span class="keyword">for</span> PHP extension directory... /usr/<span class="built_in">local</span>/php7/lib/php/extensions/no-debug-non-zts-<span class="number">20160303</span></span><br><span class="line">checking <span class="keyword">for</span> PHP installed headers prefix... /usr/<span class="built_in">local</span>/php7/include/php</span><br><span class="line">checking <span class="keyword">if</span> debug is enabled... no</span><br><span class="line">checking <span class="keyword">if</span> zts is enabled... no</span><br><span class="line">checking <span class="keyword">for</span> re2c... no</span><br><span class="line">configure: WARNING: You will need re2c <span class="number">0.13</span>.<span class="number">4</span> or later <span class="keyword">if</span> you want to regenerate PHP parsers.</span><br><span class="line">checking <span class="keyword">for</span> gawk... gawk</span><br><span class="line">checking whether to <span class="built_in">enable</span> fhy support... yes, shared</span><br><span class="line">checking <span class="keyword">for</span> g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking how to run the C++ preprocessor... g++ -E</span><br><span class="line">checking <span class="keyword">for</span> ld used by cc... /usr/bin/ld</span><br><span class="line">checking <span class="keyword">if</span> the linker (/usr/bin/ld) is GNU ld... yes</span><br><span class="line">checking <span class="keyword">for</span> /usr/bin/ld option to reload object files... -r</span><br><span class="line">checking <span class="keyword">for</span> BSD-compatible nm... /usr/bin/nm -B</span><br><span class="line">checking whether ln <span class="operator">-s</span> works... yes</span><br><span class="line">checking how to recognize dependent libraries... pass_all</span><br><span class="line">checking <span class="keyword">for</span> ANSI C header files... yes</span><br><span class="line">checking <span class="keyword">for</span> sys/types.h... yes</span><br><span class="line">checking <span class="keyword">for</span> sys/stat.h... yes</span><br><span class="line">checking <span class="keyword">for</span> stdlib.h... yes</span><br><span class="line">checking <span class="keyword">for</span> string.h... yes</span><br><span class="line">checking <span class="keyword">for</span> memory.h... yes</span><br><span class="line">checking <span class="keyword">for</span> strings.h... yes</span><br><span class="line">checking <span class="keyword">for</span> inttypes.h... yes</span><br><span class="line">checking <span class="keyword">for</span> stdint.h... yes</span><br><span class="line">checking <span class="keyword">for</span> unistd.h... yes</span><br><span class="line">checking dlfcn.h usability... yes</span><br><span class="line">checking dlfcn.h presence... yes</span><br><span class="line">checking <span class="keyword">for</span> dlfcn.h... yes</span><br><span class="line">checking how to run the C++ preprocessor... g++ -E</span><br><span class="line">checking the maximum length of <span class="built_in">command</span> line arguments... <span class="number">1572864</span></span><br><span class="line">checking <span class="built_in">command</span> to parse /usr/bin/nm -B output from cc object... ok</span><br><span class="line">checking <span class="keyword">for</span> objdir... .libs</span><br><span class="line">checking <span class="keyword">for</span> ar... ar</span><br><span class="line">checking <span class="keyword">for</span> ranlib... ranlib</span><br><span class="line">checking <span class="keyword">for</span> strip... strip</span><br><span class="line">checking <span class="keyword">if</span> cc supports -fno-rtti -fno-exceptions... no</span><br><span class="line">checking <span class="keyword">for</span> cc option to produce PIC... <span class="operator">-f</span>PIC</span><br><span class="line">checking <span class="keyword">if</span> cc PIC flag <span class="operator">-f</span>PIC works... yes</span><br><span class="line">checking <span class="keyword">if</span> cc static flag -static works... no</span><br><span class="line">checking <span class="keyword">if</span> cc supports -c -o file.o... yes</span><br><span class="line">checking whether the cc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes</span><br><span class="line">checking whether -lc should be explicitly linked in... no</span><br><span class="line">checking dynamic linker characteristics... GNU/Linux ld.so</span><br><span class="line">checking how to hardcode library paths into programs... immediate</span><br><span class="line">checking whether stripping libraries is possible... yes</span><br><span class="line">checking <span class="keyword">if</span> libtool supports shared libraries... yes</span><br><span class="line">checking whether to build shared libraries... yes</span><br><span class="line">checking whether to build static libraries... no</span><br><span class="line"></span><br><span class="line">creating libtool</span><br><span class="line">appending configuration tag <span class="string">"CXX"</span> to libtool</span><br><span class="line">checking <span class="keyword">for</span> ld used by g++... /usr/bin/ld -m elf_x86_64</span><br><span class="line">checking <span class="keyword">if</span> the linker (/usr/bin/ld -m elf_x86_64) is GNU ld... yes</span><br><span class="line">checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes</span><br><span class="line">checking <span class="keyword">for</span> g++ option to produce PIC... <span class="operator">-f</span>PIC</span><br><span class="line">checking <span class="keyword">if</span> g++ PIC flag <span class="operator">-f</span>PIC works... yes</span><br><span class="line">checking <span class="keyword">if</span> g++ static flag -static works... no</span><br><span class="line">checking <span class="keyword">if</span> g++ supports -c -o file.o... yes</span><br><span class="line">checking whether the g++ linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes</span><br><span class="line">checking dynamic linker characteristics... GNU/Linux ld.so</span><br><span class="line">(cached) (cached) checking how to hardcode library paths into programs... immediate</span><br><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating config.h</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>5.1. make</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost fhy]<span class="comment"># make</span></span><br><span class="line">/bin/sh /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/libtool --mode=compile cc -DZEND_ENABLE_STATIC_TSRMLS_CACHE=<span class="number">1</span> -I. -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy -DPHP_ATOM_INC -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/include -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/main -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy -I/usr/<span class="built_in">local</span>/php7/include/php -I/usr/<span class="built_in">local</span>/php7/include/php/main -I/usr/<span class="built_in">local</span>/php7/include/php/TSRM -I/usr/<span class="built_in">local</span>/php7/include/php/Zend -I/usr/<span class="built_in">local</span>/php7/include/php/ext -I/usr/<span class="built_in">local</span>/php7/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -c /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/fhy.cpp -o fhy.lo</span><br><span class="line"> cc -DZEND_ENABLE_STATIC_TSRMLS_CACHE=<span class="number">1</span> -I. -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy -DPHP_ATOM_INC -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/include -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/main -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy -I/usr/<span class="built_in">local</span>/php7/include/php -I/usr/<span class="built_in">local</span>/php7/include/php/main -I/usr/<span class="built_in">local</span>/php7/include/php/TSRM -I/usr/<span class="built_in">local</span>/php7/include/php/Zend -I/usr/<span class="built_in">local</span>/php7/include/php/ext -I/usr/<span class="built_in">local</span>/php7/include/php/ext/date/lib -DHAVE_CONFIG_H -g -O2 -c /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/fhy.cpp  <span class="operator">-f</span>PIC -DPIC -o .libs/fhy.o</span><br><span class="line">/bin/sh /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/libtool --mode=link cc -DPHP_ATOM_INC -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/include -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/main -I/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy -I/usr/<span class="built_in">local</span>/php7/include/php -I/usr/<span class="built_in">local</span>/php7/include/php/main -I/usr/<span class="built_in">local</span>/php7/include/php/TSRM -I/usr/<span class="built_in">local</span>/php7/include/php/Zend -I/usr/<span class="built_in">local</span>/php7/include/php/ext -I/usr/<span class="built_in">local</span>/php7/include/php/ext/date/lib  -DHAVE_CONFIG_H  -g -O2   -o fhy.la -export-dynamic -avoid-version -prefer-pic -module -rpath /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/modules -lstdc++ fhy.lo</span><br><span class="line">cc -shared  .libs/fhy.o  -lstdc++  -Wl,-soname -Wl,fhy.so -o .libs/fhy.so</span><br><span class="line">creating fhy.la</span><br><span class="line">(<span class="built_in">cd</span> .libs &amp;&amp; rm <span class="operator">-f</span> fhy.la &amp;&amp; ln <span class="operator">-s</span> ../fhy.la fhy.la)</span><br><span class="line">/bin/sh /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/libtool --mode=install cp ./fhy.la /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/modules</span><br><span class="line">cp ./.libs/fhy.so /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/modules/fhy.so</span><br><span class="line">cp ./.libs/fhy.lai /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/modules/fhy.la</span><br><span class="line">PATH=<span class="string">"<span class="variable">$PATH</span>:/sbin"</span> ldconfig -n /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/modules</span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line">Libraries have been installed <span class="keyword">in</span>:</span><br><span class="line">   /root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/modules</span><br><span class="line"></span><br><span class="line">If you ever happen to want to link against installed libraries</span><br><span class="line"><span class="keyword">in</span> a given directory, LIBDIR, you must either use libtool, and</span><br><span class="line">specify the full pathname of the library, or use the `-LLIBDIR<span class="string">'</span><br><span class="line">flag during linking and do at least one of the following:</span><br><span class="line">   - add LIBDIR to the `LD_LIBRARY_PATH'</span> environment variable</span><br><span class="line">     during execution</span><br><span class="line">   - add LIBDIR to the `LD_RUN_PATH<span class="string">' environment variable</span><br><span class="line">     during linking</span><br><span class="line">   - use the `-Wl,--rpath -Wl,LIBDIR'</span> linker flag</span><br><span class="line">   - have your system administrator add LIBDIR to `/etc/ld.so.conf<span class="string">'</span><br><span class="line"></span><br><span class="line">See any operating system documentation about shared libraries for</span><br><span class="line">more information, such as the ld(1) and ld.so(8) manual pages.</span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">Build complete.</span><br><span class="line">Don'</span>t forget to run <span class="string">'make test'</span>.</span><br></pre></td></tr></table></figure>
+<p>生成的扩展文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost modules]<span class="comment"># pwd</span></span><br><span class="line">/root/<span class="built_in">source</span>/php-<span class="number">7.1</span>.<span class="number">0</span>/ext/fhy/modules</span><br><span class="line">[root@localhost modules]<span class="comment"># ll</span></span><br><span class="line">总用量 <span class="number">60</span></span><br><span class="line">-rw-r--r--. <span class="number">1</span> root root   <span class="number">783</span> Dec  <span class="number">8</span> <span class="number">11</span>:<span class="number">25</span> fhy.la</span><br><span class="line">-rwxr-xr-x. <span class="number">1</span> root root <span class="number">54371</span> Dec  <span class="number">8</span> <span class="number">11</span>:<span class="number">25</span> fhy.so</span><br></pre></td></tr></table></figure>
+<p>将<code>fhy.so</code> 放到php扩展目录 <code>/usr/local/php7/lib/php/extensions/no-debug-non-zts-20160303/</code><br><code>php.ini</code> 引入扩展文件</p>
+<h2 id="u6D4B_u8BD5_u6269_u5C55"><a href="#u6D4B_u8BD5_u6269_u5C55" class="headerlink" title="测试扩展"></a>测试扩展</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost www]<span class="comment"># cat test.php</span></span><br><span class="line">&lt;?php</span><br><span class="line"><span class="built_in">echo</span> fhy_say().<span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">echo</span> confirm_fhy_compiled(<span class="string">'fhy'</span>).<span class="string">"\n"</span>;</span><br><span class="line">[root@localhost www]<span class="comment"># php test.php</span></span><br><span class="line">Hello world!</span><br><span class="line">Congratulations! You have successfully modified ext/fhy/config.m4. Module fhy is now compiled into PHP.</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/02/28/Git-Protocol/">
+                    Git Protocol
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/12/03/CodeAnyWhere/">
+                    CodeAnyWhere
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u51C6_u5907_u5DE5_u4F5C_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">准备工作：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5F00_u59CB_u7F16_u5199_u6269_u5C55_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">开始编写扩展：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u6D4B_u8BD5_u6269_u5C55"><span class="toc-number">3.</span> <span class="toc-text">测试扩展</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"用c++为php编写扩展　| Fhy的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/02/28/Git-Protocol/" title="上一篇: Git Protocol">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/12/03/CodeAnyWhere/" title="下一篇: CodeAnyWhere">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/28/Git-Protocol/">Git Protocol</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/用c-为php写扩展/">用c++为php编写扩展</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/03/CodeAnyWhere/">CodeAnyWhere</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/vim快捷键/">vim快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/07/右键点击文件上传到七牛选项/">右键点击文件增加“上传到七牛“选项</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/19/毕淑敏《提醒幸福》/">毕淑敏《提醒幸福》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/js导出excel/">js导出excel</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/Centos7安装samba服务/">Centos7安装samba服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/16/Cakephp事务/">Cakephp事务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/07/上传文件实例/">上传文件实例</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/03/iframe调用父级页面/">iframe调用父级页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Centos-7-MariaDB/">Centos 7 MariaDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/20/毕淑敏《爱怕什么》/">毕淑敏《爱怕什么》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/20/My-centos-virtual/">My centos virtual</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/18/js-php-时间验证/">js&php 时间验证</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/18/希桅的第一次面试/">希桅的第一次面试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/16/Hexo-环境迁移/">Hexo 环境迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/Cakephp-引用另一类的几种方法/">Cakephp 引用另一类的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/Bootstrap模态层（弹出层）回调/">Bootstrap模态层（弹出层）回调</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/PHP-合并数组-追加数组例子/">PHP 合并数组 追加数组例子</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/14/javascript中split字符串分割函数/">javascript中split字符串分割函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/毕淑敏：我很重要/">毕淑敏：我很重要</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/生命短暂，经不起等待！/">生命短暂，经不起等待！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/留得住的不需用力，留不住的无需费力/">留得住的不需用力，留不住的无需费力</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/现在好好活着，就是最好的活法/">现在好好活着，就是最好的活法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/百善孝为先，必读的20句儒家经典！/">百善孝为先，必读的20句儒家经典！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/你的努力，与虚荣无关/">你的努力，与虚荣无关</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/人与人，千万别走得太近！/">人与人，千万别走得太近！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/心态好，一切都好！改变你一生运势的七大心境！/">心态好，一切都好！改变你一生运势的七大心境！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/58句毕淑敏经典语录/">58句毕淑敏经典语录。</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 Fhy
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> Theme <a href="https://github.com/fanhengyuan/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<!-- <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+  </div>
+</body>
+</html>

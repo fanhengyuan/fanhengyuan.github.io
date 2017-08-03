@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Fhy" />
+
+
+
+<meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="毕淑敏：我很重要">
+<meta property="og:url" content="http://aiti.me/2016/01/13/毕淑敏：我很重要/index.html">
+<meta property="og:site_name" content="Fhy的博客">
+<meta property="og:description">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw600/9de3a1b5jw1dvf676mq5ij.jpg">
+<meta property="og:updated_time" content="2016-12-26T02:47:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="毕淑敏：我很重要">
+<meta name="twitter:description">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Fhy的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>毕淑敏：我很重要 | Fhy的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+
+<!-- PJAX -->
+
+    <!-- Pjax -->
+<script src="//cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script>
+    $(document).pjax('a[target!=_blank]', '.body-wrap', {
+        fragment: '.body-wrap',
+        timeout: 5000,
+    });
+    $(document).pjax('a[target!=_blank]', '.left-col', {
+        fragment: '.left-col',
+        timeout: 5000,
+    });
+	$(document).on('pjax:complete', function() { // 加载各种类
+		pajx_loadDuoShuo();
+		load_tag_color();
+		use_fancybox();
+	});
+	function use_fancybox() {
+		require(['//cdn.bootcss.com/fancybox/2.1.4/jquery.fancybox.js'], function(pc){
+			var isFancy = $(".isFancy");
+			if(isFancy.length == 1){
+				var imgArr = $(".article-inner img");
+				for(var i=0,len=imgArr.length;i<len;i++){
+					var src = imgArr.eq(i).attr("src");
+					var title = imgArr.eq(i).attr("alt");
+					imgArr.eq(i).replaceWith("<a href='"+src+"' title='"+title+"' rel='fancy-group' class='fancy-ctn fancybox'><img src='"+src+"' title='"+title+"'></a>");
+				}
+				// $(".article-inner .fancy-ctn").fancybox();
+			}
+		});
+
+	}
+	function pajx_loadDuoShuo(){
+		var dus=$(".ds-thread");
+	    if($(dus).length==1){
+			var el = document.createElement('div');
+			el.setAttribute('data-thread-key',$(dus).attr("data-thread-key"));//必选参数
+			el.setAttribute('data-url',$(dus).attr("data-url"));
+			DUOSHUO.EmbedThread(el);
+			$(dus).html(el);
+	    }
+	}
+	function load_tag_color() {
+		$(".body-wrap .article").css("opacity", 1);
+		require(['/js/pc.js'], function(pc){
+			pc.init();
+			isPCInit = true;
+		});
+	}
+</script>
+
+
+
+
+    
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fhy</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">我们要有最朴素的生活，与最遥远的梦想 。即使明日天寒地冻，路远马亡。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:fanhengyuan1994@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/fhy1994" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/fanhengyuan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/fanhengyuan/activities" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileupload/">fileupload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/first/">first</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文章/">文章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕淑敏/">毕淑敏</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.google.com.hk">Google</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://coding.net">Coding</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.zhangdii.cn">张迪</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.aiti.me">fhy&#39;s blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://codeanywhere.com">CodeAnyWhere</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fhy</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fhy</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">我们要有最朴素的生活，与最遥远的梦想 。即使明日天寒地冻，路远马亡。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:fanhengyuan1994@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/fhy1994" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/fanhengyuan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/fanhengyuan/activities" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-毕淑敏：我很重要" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/13/毕淑敏：我很重要/" class="article-date">
+      <time datetime="2016-01-13T10:03:06.000Z" itemprop="datePublished">2016-01-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      毕淑敏：我很重要
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/毕淑敏/">毕淑敏</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><excerpt in="" index="" |="" 首页摘要=""><br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<p>文/毕淑敏<br><img width="600" height="378" src="http://ww1.sinaimg.cn/mw600/9de3a1b5jw1dvf676mq5ij.jpg" style="cursor: pointer; width: 556.566px; height: 351px; top: 0px; left: 455.717px; display: block;" title="图片"><br>当我说出“我很重要”这句话的时候，颈项后面掠过一阵战栗。我知道这是把自己的额头裸露在弓箭之下了，心灵极容易被别人的批判洞伤。</p>
+<p>许多年来，没有人敢在光天化日下表示自己“很重要”。我们从小受到的教育都是——“我不重要”。</p>
+<p>作为一名普通士兵，与辉煌的胜利相比，我不重要。</p>
+<p>作为一个单薄的个体，与浑厚的集体相比，我不重要。</p>
+<p>作为一位奉献型的女性，与整个家庭相比，我不重要。</p>
+<p>作为随处可见的人的一分子，与宝贵的物质相比，我们不重要。</p>
+<p>我们——简明扼要地说，就是每一个单独的“我”——到底重要还是不重要？</p>
+<p>我是由无数星辰日月草木山川的精华汇聚而成的。只要计算一下我们一生吃进去多少谷物，饮下了多少清水，才凝聚成这具美好的躯体，我们一定会为那数字的庞大而惊讶。平日里，我们尚要珍惜一粒米、一叶菜，难道可以对亿万粒菽粟亿万滴甘露濡养的万物之灵，掉以丝毫的轻心吗?</p>
+<p>当我在博物馆里看到北京猿人窄小的额和前凸的吻时，我为人类原始时期的粗糙而黯然。他们精心打制出的石器，用今天的目光看来不过是极简单的玩具。如今很幼小的孩童，就能熟练地操纵语言，我们才意识到人类已经在进化之路上前进了多远。我们的头颅就是一部历史，无数祖先进步的痕迹储存于脑海深处。我们是一株亿万年苍老树干上最新萌发的绿叶，不单属于自身，更属于土地。人类的精神之火，是连绵不断的链条，作为精致的一环，我们否认了自身的重要，就是推卸了一种神圣的承诺。</p>
+<p>回溯我们诞生的过程，两组先命基因的嵌合，更是充满了人所不能把握的偶然性。我们每一个个体，都是机遇的产物。</p>
+<p>常常遥想，如果是另一个男人和另一个女人，就绝不会有今天的我……</p>
+<p>即使是这一个男人和这一个女人，如果换了一个时辰相爱，也不会有此刻的我……</p>
+<p>即使是这一个男人和这一个女人在这一个时辰，由于一片小小落叶或是清脆鸟啼的打搅，依然可能不会有如此的我……</p>
+<p>一种令人怅然以至走入恐惧的想像，像雾蔼一般不可避免地缓缓升起，模糊了我们的来路和去处，令人不得不断然打住思绪。</p>
+<p>我们的生命，端坐于概率垒就的金字塔的顶端。面对大自然的鬼斧神工，我们还有权利和资格说我不重要吗?</p>
+<p>对于我们的父母，我们永远是不可重复的孤本。无论他们有多少儿女，我们都是独特的一个。</p>
+<p>假如我不存在了，他们就空留一份慈爱，在风中蛛丝般无法附丽地飘荡。</p>
+<p>假如我生了病，他们的心就会皱缩成石块，无数次向上苍祈祷我的康复，甚至愿灾痛以十倍的烈度降临于他们自身，以换取我的平安。</p>
+<p>我的每一滴成功，都如同经过放大镜，进入他们的瞳孔，摄人他们的心底。</p>
+<p>假如我们先他们而去，他们的白发会从日出垂到日暮，他们的泪水会便太平洋为之涨潮。</p>
+<p>面对这无法承载的亲情，我们还敢说我不重要吗?</p>
+<p>我们的记忆，同自己的伴侣紧密地缠绕在一处，像两种混淆于一碟的颜色，已无法分开。你原先是黄，我原先是蓝，我们共同的颜色是绿，绿得生机勃勃，绿得苍翠欲滴。失去了妻子的男人，胸口就缺少了生死做关的肋骨，心房裸露着，随着每一阵轻风滴血。失去了丈夫的女人，就是齐斩斩折断的琴弦，每一根都在雨夜长久地自鸣……</p>
+<p>面对相濡以沫的同道，我们忍心说我不重要吗？</p>
+<p>俯对我们的孩童，我们是至高至尊的唯一。我们是他们最初的宇宙，我们是深不时测的海洋。假如我们隐去，孩子就永失淳厚无双的血缘之爱，天倾西北，地陷东南，万劫不复。盘子破裂可以粘起，童年碎了，永不复原。伤口流血了，没有母亲的手为他包扎。面临抉择，没有父亲的智慧为他谋略……面对后代，我们有胆量说我不重要吗?</p>
+<p>与朋友相处，多年的相知，使我们仅凭一个微蹙的眉尖、一次睫毛的抖动，就可以明了对方的心情，假如我不在了，就像计算机丢失了一份不曾复制的文件，他的记忆库里留下不可填补的黑洞。夜深人静时，手指在揿了几个电话键码后，骤然停住，那一串数字再也用不着默诵了。逢年过节时，她写下一沓沓的贺卡。轮到我的地址时，她闭上眼睛……许久之后，她将一张没有地址只有姓名的贺卡填好，在无人的风口将它焚化。</p>
+<p>相交多年的密友，就如同沙漠中的古陶，摔碎一件就少一件，再也找不到一模一样的成品。面对这般友情，我们还好意思说我不重要吗?</p>
+<p>我很重要。</p>
+<p>我对于我的工作我的事业，是不可或缺的主宰。我的独出心裁的创意，像鸽群一般在天空翱翔，只有我才捉得住它们的羽毛。我的设想像珍珠一般散落在海滩上，等待着我把它用金线串起。我的意志向前延伸，直到地平线消失的远方……</p>
+<p>没有人能替代我，就像我不能替代别人。我很重要。</p>
+<p>我对自己小声说。我还不习惯嘹亮地宣布这一主张，我们在不重要中生活得太久了。</p>
+<p>我很重要。</p>
+<p>我重复了一遍。声音放大了一点。我听到自己的心脏在这种呼唤中猛烈地跳动。</p>
+<p>我很重要。</p>
+<p>我终于大声地对世界这样宣布。片刻之后，我听到山岳和江海传来回声。</p>
+<p>是的，我很重要。我们每一个人都应该有勇气这样说。我们的地位可能很卑微，我们的身份可能很渺小，但这丝毫不意味着我们不重要。</p>
+<p>重要并不是伟大的同义词，它是心灵对生命的允诺。</p>
+<p>对于一株新生的树苗，每一片叶子都很重要，对于一个孕育中的胚胎，每一段染色体碎片都很重要。甚至驰骋寰宇的航天飞机，也可以因为一个油封橡皮圈的疏漏而凌空爆炸，你能说它不重要吗？</p>
+<p>人们常常从成就事业的角度，断定我们是否重要。但我要说，只要我们在时刻努力着，为光明在奋斗着，我们就是无比重要地生活着。</p>
+<p>让我们昂起头，对着我们这颗美丽的星球上无数的生灵，响亮地宣布——</p>
+<p>我很重要！</p>
+</the>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/01/14/javascript中split字符串分割函数/">
+                    javascript中split字符串分割函数
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/01/13/生命短暂，经不起等待！/">
+                    生命短暂，经不起等待！
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"毕淑敏：我很重要　| Fhy的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/01/14/javascript中split字符串分割函数/" title="上一篇: javascript中split字符串分割函数">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/01/13/生命短暂，经不起等待！/" title="下一篇: 生命短暂，经不起等待！">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/28/Git-Protocol/">Git Protocol</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/用c-为php写扩展/">用c++为php编写扩展</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/03/CodeAnyWhere/">CodeAnyWhere</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/vim快捷键/">vim快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/07/右键点击文件上传到七牛选项/">右键点击文件增加“上传到七牛“选项</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/19/毕淑敏《提醒幸福》/">毕淑敏《提醒幸福》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/js导出excel/">js导出excel</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/Centos7安装samba服务/">Centos7安装samba服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/16/Cakephp事务/">Cakephp事务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/07/上传文件实例/">上传文件实例</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/03/iframe调用父级页面/">iframe调用父级页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Centos-7-MariaDB/">Centos 7 MariaDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/20/毕淑敏《爱怕什么》/">毕淑敏《爱怕什么》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/20/My-centos-virtual/">My centos virtual</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/18/js-php-时间验证/">js&php 时间验证</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/18/希桅的第一次面试/">希桅的第一次面试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/16/Hexo-环境迁移/">Hexo 环境迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/Cakephp-引用另一类的几种方法/">Cakephp 引用另一类的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/Bootstrap模态层（弹出层）回调/">Bootstrap模态层（弹出层）回调</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/PHP-合并数组-追加数组例子/">PHP 合并数组 追加数组例子</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/14/javascript中split字符串分割函数/">javascript中split字符串分割函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/毕淑敏：我很重要/">毕淑敏：我很重要</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/生命短暂，经不起等待！/">生命短暂，经不起等待！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/留得住的不需用力，留不住的无需费力/">留得住的不需用力，留不住的无需费力</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/现在好好活着，就是最好的活法/">现在好好活着，就是最好的活法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/百善孝为先，必读的20句儒家经典！/">百善孝为先，必读的20句儒家经典！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/你的努力，与虚荣无关/">你的努力，与虚荣无关</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/人与人，千万别走得太近！/">人与人，千万别走得太近！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/心态好，一切都好！改变你一生运势的七大心境！/">心态好，一切都好！改变你一生运势的七大心境！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/58句毕淑敏经典语录/">58句毕淑敏经典语录。</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 Fhy
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> Theme <a href="https://github.com/fanhengyuan/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<!-- <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+  </div>
+</body>
+</html>

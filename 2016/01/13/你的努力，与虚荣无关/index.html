@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Fhy" />
+
+
+
+<meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你的努力，与虚荣无关">
+<meta property="og:url" content="http://aiti.me/2016/01/13/你的努力，与虚荣无关/index.html">
+<meta property="og:site_name" content="Fhy的博客">
+<meta property="og:description">
+<meta property="og:updated_time" content="2016-12-26T02:47:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你的努力，与虚荣无关">
+<meta name="twitter:description">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Fhy的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>你的努力，与虚荣无关 | Fhy的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+
+<!-- PJAX -->
+
+    <!-- Pjax -->
+<script src="//cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script>
+    $(document).pjax('a[target!=_blank]', '.body-wrap', {
+        fragment: '.body-wrap',
+        timeout: 5000,
+    });
+    $(document).pjax('a[target!=_blank]', '.left-col', {
+        fragment: '.left-col',
+        timeout: 5000,
+    });
+	$(document).on('pjax:complete', function() { // 加载各种类
+		pajx_loadDuoShuo();
+		load_tag_color();
+		use_fancybox();
+	});
+	function use_fancybox() {
+		require(['//cdn.bootcss.com/fancybox/2.1.4/jquery.fancybox.js'], function(pc){
+			var isFancy = $(".isFancy");
+			if(isFancy.length == 1){
+				var imgArr = $(".article-inner img");
+				for(var i=0,len=imgArr.length;i<len;i++){
+					var src = imgArr.eq(i).attr("src");
+					var title = imgArr.eq(i).attr("alt");
+					imgArr.eq(i).replaceWith("<a href='"+src+"' title='"+title+"' rel='fancy-group' class='fancy-ctn fancybox'><img src='"+src+"' title='"+title+"'></a>");
+				}
+				// $(".article-inner .fancy-ctn").fancybox();
+			}
+		});
+
+	}
+	function pajx_loadDuoShuo(){
+		var dus=$(".ds-thread");
+	    if($(dus).length==1){
+			var el = document.createElement('div');
+			el.setAttribute('data-thread-key',$(dus).attr("data-thread-key"));//必选参数
+			el.setAttribute('data-url',$(dus).attr("data-url"));
+			DUOSHUO.EmbedThread(el);
+			$(dus).html(el);
+	    }
+	}
+	function load_tag_color() {
+		$(".body-wrap .article").css("opacity", 1);
+		require(['/js/pc.js'], function(pc){
+			pc.init();
+			isPCInit = true;
+		});
+	}
+</script>
+
+
+
+
+    
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fhy</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">我们要有最朴素的生活，与最遥远的梦想 。即使明日天寒地冻，路远马亡。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:fanhengyuan1994@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/fhy1994" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/fanhengyuan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/fanhengyuan/activities" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileupload/">fileupload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/first/">first</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文章/">文章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕淑敏/">毕淑敏</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.google.com.hk">Google</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://coding.net">Coding</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.zhangdii.cn">张迪</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.aiti.me">fhy&#39;s blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://codeanywhere.com">CodeAnyWhere</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fhy</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fhy</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">我们要有最朴素的生活，与最遥远的梦想 。即使明日天寒地冻，路远马亡。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:fanhengyuan1994@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/fhy1994" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/fanhengyuan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/fanhengyuan/activities" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-你的努力，与虚荣无关" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/13/你的努力，与虚荣无关/" class="article-date">
+      <time datetime="2016-01-13T08:47:24.000Z" itemprop="datePublished">2016-01-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      你的努力，与虚荣无关
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/文章/">文章</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><excerpt in="" index="" |="" 首页摘要=""><br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<p> 身边有一个身材娇小打扮入时、举止得体生活精致的女生，是隔壁部门的主管。我们都叫她小A，样样都是优异的A。</p>
+<p>她的英文名字叫Ada，带着黑框眼镜，即便是不施粉黛，也能看出出门前精心修饰的发型与嘴唇上永远润泽的颜色。她很努力，每天前三个到办公室，给桌上的绿萝浇水，整理前一天加班散落的文件，即便是主管，她仍然每天替身边的同事擦一擦桌子，扶好倒下的水杯并打开电脑，一天的工作，就从清晨开始。</p>
+<p>她很努力，每天精力旺盛，以一敌百，在办公室与上司据理力争，在同侪面前是个拼命三郎，在下属面前关怀备至，即便是加班加点，她也从来都是最早一个上班，最晚一个下班。我们常常在茶水间遇到，点头之余，也会闲聊几句。</p>
+<p>昨日下午，我在茶水间打完业务电话，乘着屋外阳光灿烂，想要调整一下糟糕的心绪，再进入到工作状态。她站在我身后，手里递过来冒着热气的牛奶，“喝一点吧，心情会好点。”</p>
+<p>“谢谢。”我接过她手里的牛奶，与她一起坐下来。</p>
+<p>“你怎么可以每天都这么精神奕奕?好像停不下来的小马达，充满动力。”我笑着问她。</p>
+<p>“哪有你说的那么好。我有时候也会像你刚才那样啊，站在那里，一个人出神，收拾一下心情，准备下一次冲锋。”她爽朗地笑着，一点都不为我冒昧的一问而感到尴尬。</p>
+<p>“其实，作为女生在职场里，有时候真的很有挫败感。上司苛责，同事冷眼，还有那无休止的加班，客户的责骂，家人的不理解。”说到家人的不理解，她的眼神黯了下来。</p>
+<p>“很多时候，我们这么努力，不是为了去证明什么，而是想要活得自由一点。”她站起来，拿着杯子笑着走开。</p>
+<p>想不明白的我，坐了一会儿，也站起来开始重新投入工作，只是那句话：很多时候，我们这么努力，不是为了去证明什么，而是想要活得自由一点，常常会不经意间冒出来。而我也发现，在之后的日子里，不论我遇到什么事情，恼怒、焦躁一起向我袭来的时候，我就不自觉地朝她所在的角落看去，她依然那么淡然，气定神闲，于是我深呼一口气，告诉自己也可以如她一样。</p>
+<p>之后的第二周，部门活动聚餐，大家在KTV唱歌至深夜12点，啤酒瓶散落一地，每个人脸上都带着月底加班后解脱的兴奋，在灯光下变换着不同的颜色。唯独她坐在角落边，看着大家笑闹，偶尔插播一两句，总能恰中要害，画龙点睛。我去厕所吐完出来，她站在门外，递给我一张纸，说：“尽力就好了。不用逢迎，下班了，做回自己就好啦。”然后，我又跑回厕所一顿狂吐，隐约记着，她说，不要逢迎，原来是看出最后不能喝的我，还被上司猛灌，知道我力有不逮。深夜，我们一群人站在马路上打车，一辆跑车停在A的面前，隔得太远，加之又不清醒，只隐约看到A不太情愿，车里的人努力想要她坐上车，最终A拦了一辆出租车，绝尘而去。</p>
+<p>第二天，中午吃饭的时候，听到部门小八卦说，小A昨天为什么没有上那个高富帅的车?一直听说追她的人都家境超好，果然名不虚传。另一个说，A好像家境一般呀，这么好的机会，何必要自己这么辛苦的起早贪黑，拼命干活儿?干了几年还只是当个主管，一个月工资还不如买几个包呐。</p>
+<p>说完一脸的不理解。另一个又接上话：谁知道昨天晚上是不是玩欲擒故纵的戏码。</p>
+<p>“哼，我可不信，那些名贵的包，是她舍得买的。”</p>
+<p>她们毫不顾忌旁边一脸讶然的扒饭的我，一边说一边笑着，绝尘而去。</p>
+<p>下午，中场休息的时候，我又在茶水间里遇到了A，她的黑眼圈连粉底都挡不住，双眼无神，看着杯子里的花茶，连水溅出来，都没看到。</p>
+<p>“小心烫。”我轻轻摇了一下她。她回我一个感谢的笑脸。</p>
+<p>“你也听到什么了吗?你也应该听到了。公司不大，小道消息才传得最快。”我看着她，不置可否。应该中午坐在附近吃饭的她，也听到了不少闲言碎语。只是作为高冷的她，怎么会去跟她们计较?</p>
+<p>“作为女生，立足职场本已不易，却还要因为自己的努力饱受别人非议。”她幽幽叹了一口气。</p>
+<p>与她聊天，才知道，她身上每一件衣服、每一个饰品、每一个搭配，都是她通过自己的辛苦努力获得的，她只是希望自己看起来精神，所以她会去学习如何穿搭，她只是希望自己在见客户的时候，不会出现身份上的不对等，所以她攒钱三个月，买了一个包，更多的时候，她不选择去走捷径，而是通过自己的双手去获得，业余时间给人拍照，写稿或者去当平模，只是为了让自己的内心更丰富一点，而不是一周五天的工作狂。她也有人追，可是她没有把对方作为自己成功的跳板，而是选择自己适合并心仪的对象。她的目标很简单：认真地对待工作和生活，希望每一份获得都是自己努力而得来，追求生活品质并没有错，光明正大地赚钱花钱，却成为了别人眼中，莫名其妙的虚荣和欲情故纵的戏码，让她听到这些说辞的时候，不禁为这些无聊的同事们感到悲哀，自己内心却也感到孤独。</p>
+<p>她说，直到遇到了我，仿佛看到了年轻时候的自己，那么拼命想要证明自己，埋头苦干，内心茫然。其实，只有自己知道，我们不选择走捷径，只是因为，不想要被人说三道四，只是想要说，自己的努力，不是为了钓金龟婿或者一步登天，更多只是想要让自己活得充实而有意义。</p>
+<p>花了三年时间，当上主管，这只是职业生涯初期，她给自己定的目标，很多新来的员工背地里也常常议论，小A是总监最得力的助手，因为她长得漂亮，是不是也更多得到倚重。起初，我也有这种想法，因为她给人柔弱的感觉，颜值高，又得到高层器重，却不知她背后是花了别人几倍的努力，在深夜里写文件，一个人出差拓展市场，一个人与供应商周旋，将公司一次次从险境里面拉出。她也从不解释，她说，解释是无能的人做的事情，我用事实证明过的东西，用不着解释。</p>
+<p>她的确用身体力行的业绩，让大家刮目相看。年底表彰大会，她以领先第二名200多万的业绩，获得年度最佳。我在人群里，为她高兴，领奖台上，她熠熠生辉，那句：解释是无能的人做的事情，我用事实证明过的东西，用不着解释。在此刻得到完美的解答。</p>
+<p>很多时候，我们会把自己的放入一个弱势的地位，觉得女生可以利用自己的优势获得捷径，然而，人生最奇妙的地方就在于，她的公平与无私。如果我们在前一段路途中就预支了幸福，后面一段，必定痛苦，如果我们在最开始就心怀感恩，冒雨前行，最终后半段的路途也会变得通达又平稳。姑娘们，若一心只想着走捷径，那就真的满心以为，别人也是靠着捷径去成功，自己一心想着虚荣，那也必定认为，她人的目的，也不仅仅是为了证明自己，而是目的不纯，心怀叵测。</p>
+<p>每个人的内心都是一面镜子，折射着自己的灵魂。有那么一群姑娘，每天工作忙碌，生活充实，去健身，去野营，去学画，去读书，并不是为了找一个更高水准的老公或者嫁入可以让自己少奋斗十年的家族，而是让自己在这个过程中有所收获，让自己越来越有涵养，在未来的日子里，面对那些似是而非的指责，能够一笑而过，这种气质，不是每天揣测被人心怀不轨的心胸可以比拟的，这种风度，也不是每天盯着肥皂剧和小鲜肉可以获得的，只有自己沉淀并努力，才能获得别人眼中那毫不费力的精致生活，也才能让自己每一天都从容而淡定。</p>
+<p>她常常跟朋友说，我的目标很简单啊，我就想着，到我老了的时候，成为一个幽默、善良、有点小见识、充满生活热情的小老太太，关于那些是否可以让我物质丰腴的东西，并不重要，重要的是心，是不是还有一角是纯净而美好的。</p>
+<p>她就是那个姑娘，她的努力，与虚荣无关。</p>
+</the>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/01/13/百善孝为先，必读的20句儒家经典！/">
+                    百善孝为先，必读的20句儒家经典！
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/01/13/人与人，千万别走得太近！/">
+                    人与人，千万别走得太近！
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"你的努力，与虚荣无关　| Fhy的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/01/13/百善孝为先，必读的20句儒家经典！/" title="上一篇: 百善孝为先，必读的20句儒家经典！">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/01/13/人与人，千万别走得太近！/" title="下一篇: 人与人，千万别走得太近！">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/28/Git-Protocol/">Git Protocol</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/用c-为php写扩展/">用c++为php编写扩展</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/03/CodeAnyWhere/">CodeAnyWhere</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/vim快捷键/">vim快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/07/右键点击文件上传到七牛选项/">右键点击文件增加“上传到七牛“选项</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/19/毕淑敏《提醒幸福》/">毕淑敏《提醒幸福》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/js导出excel/">js导出excel</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/Centos7安装samba服务/">Centos7安装samba服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/16/Cakephp事务/">Cakephp事务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/07/上传文件实例/">上传文件实例</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/03/iframe调用父级页面/">iframe调用父级页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Centos-7-MariaDB/">Centos 7 MariaDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/20/毕淑敏《爱怕什么》/">毕淑敏《爱怕什么》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/20/My-centos-virtual/">My centos virtual</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/18/js-php-时间验证/">js&php 时间验证</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/18/希桅的第一次面试/">希桅的第一次面试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/16/Hexo-环境迁移/">Hexo 环境迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/Cakephp-引用另一类的几种方法/">Cakephp 引用另一类的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/Bootstrap模态层（弹出层）回调/">Bootstrap模态层（弹出层）回调</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/PHP-合并数组-追加数组例子/">PHP 合并数组 追加数组例子</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/14/javascript中split字符串分割函数/">javascript中split字符串分割函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/毕淑敏：我很重要/">毕淑敏：我很重要</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/生命短暂，经不起等待！/">生命短暂，经不起等待！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/留得住的不需用力，留不住的无需费力/">留得住的不需用力，留不住的无需费力</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/现在好好活着，就是最好的活法/">现在好好活着，就是最好的活法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/百善孝为先，必读的20句儒家经典！/">百善孝为先，必读的20句儒家经典！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/你的努力，与虚荣无关/">你的努力，与虚荣无关</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/人与人，千万别走得太近！/">人与人，千万别走得太近！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/心态好，一切都好！改变你一生运势的七大心境！/">心态好，一切都好！改变你一生运势的七大心境！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/58句毕淑敏经典语录/">58句毕淑敏经典语录。</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 Fhy
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> Theme <a href="https://github.com/fanhengyuan/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<!-- <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+  </div>
+</body>
+</html>

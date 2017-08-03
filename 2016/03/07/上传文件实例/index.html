@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Fhy" />
+
+
+
+<meta name="description">
+<meta property="og:type" content="article">
+<meta property="og:title" content="上传文件实例">
+<meta property="og:url" content="http://aiti.me/2016/03/07/上传文件实例/index.html">
+<meta property="og:site_name" content="Fhy的博客">
+<meta property="og:description">
+<meta property="og:updated_time" content="2016-12-26T02:47:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="上传文件实例">
+<meta name="twitter:description">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Fhy的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>上传文件实例 | Fhy的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script>
+        yiliaConfig.jquery_ui = [true, "//cdn.bootcss.com/jqueryui/1.10.4/jquery-ui.min.js", "//cdn.bootcss.com/jqueryui/1.10.4/css/jquery-ui.min.css"];
+    </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+
+<!-- PJAX -->
+
+    <!-- Pjax -->
+<script src="//cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
+<script>
+    $(document).pjax('a[target!=_blank]', '.body-wrap', {
+        fragment: '.body-wrap',
+        timeout: 5000,
+    });
+    $(document).pjax('a[target!=_blank]', '.left-col', {
+        fragment: '.left-col',
+        timeout: 5000,
+    });
+	$(document).on('pjax:complete', function() { // 加载各种类
+		pajx_loadDuoShuo();
+		load_tag_color();
+		use_fancybox();
+	});
+	function use_fancybox() {
+		require(['//cdn.bootcss.com/fancybox/2.1.4/jquery.fancybox.js'], function(pc){
+			var isFancy = $(".isFancy");
+			if(isFancy.length == 1){
+				var imgArr = $(".article-inner img");
+				for(var i=0,len=imgArr.length;i<len;i++){
+					var src = imgArr.eq(i).attr("src");
+					var title = imgArr.eq(i).attr("alt");
+					imgArr.eq(i).replaceWith("<a href='"+src+"' title='"+title+"' rel='fancy-group' class='fancy-ctn fancybox'><img src='"+src+"' title='"+title+"'></a>");
+				}
+				// $(".article-inner .fancy-ctn").fancybox();
+			}
+		});
+
+	}
+	function pajx_loadDuoShuo(){
+		var dus=$(".ds-thread");
+	    if($(dus).length==1){
+			var el = document.createElement('div');
+			el.setAttribute('data-thread-key',$(dus).attr("data-thread-key"));//必选参数
+			el.setAttribute('data-url',$(dus).attr("data-url"));
+			DUOSHUO.EmbedThread(el);
+			$(dus).html(el);
+	    }
+	}
+	function load_tag_color() {
+		$(".body-wrap .article").css("opacity", 1);
+		require(['/js/pc.js'], function(pc){
+			pc.init();
+			isPCInit = true;
+		});
+	}
+</script>
+
+
+
+
+    
+
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Fhy</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">我们要有最朴素的生活，与最遥远的梦想 。即使明日天寒地冻，路远马亡。</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:fanhengyuan1994@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/fhy1994" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/fanhengyuan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/fanhengyuan/activities" title="知乎"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bootstrap/">bootstrap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fileupload/">fileupload</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/first/">first</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文章/">文章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/毕淑敏/">毕淑敏</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.google.com.hk">Google</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://coding.net">Coding</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz">MOxFIVE</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.zhangdii.cn">张迪</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://blog.aiti.me">fhy&#39;s blog</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://codeanywhere.com">CodeAnyWhere</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Fhy</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Fhy</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">我们要有最朴素的生活，与最遥远的梦想 。即使明日天寒地冻，路远马亡。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:fanhengyuan1994@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/fhy1994" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/fanhengyuan" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/fanhengyuan/activities" title="知乎"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-上传文件实例" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/07/上传文件实例/" class="article-date">
+      <time datetime="2016-03-07T07:05:11.000Z" itemprop="datePublished">2016-03-07</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      上传文件实例
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fileupload/">fileupload</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><excerpt in="" index="" |="" 首页摘要=""><br><a id="more"></a></excerpt></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h1 id="php_u4E0A_u4F20_u6587_u4EF6_u7C7B_3A"><a href="#php_u4E0A_u4F20_u6587_u4EF6_u7C7B_3A" class="headerlink" title="php上传文件类:"></a>php上传文件类:</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line">  <span class="comment">/** </span><br><span class="line">   * file: fileupload.class.php 文件上传类FileUpload</span><br><span class="line">   *本类的实例对象用于处理上传文件，可以上传一个文件，也可同时处理多个文件上传</span><br><span class="line">   */</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">FileUploadComponent</span> <span class="keyword">extends</span> <span class="title">Object</span> </span>&#123; </span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$path</span> = <span class="string">"./uploads"</span>;          <span class="comment">//上传文件保存的路径</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$allowtype</span> = <span class="keyword">array</span>(<span class="string">'jpg'</span>,<span class="string">'gif'</span>,<span class="string">'png'</span>); <span class="comment">//设置限制上传文件的类型</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$maxsize</span> = <span class="number">1000000</span>;           <span class="comment">//限制文件上传大小（字节）</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$israndname</span> = <span class="keyword">true</span>;           <span class="comment">//设置是否随机重命名文件， false不随机</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$isshowfirm</span> = <span class="keyword">false</span>;          <span class="comment">//是否拼接firmid 需要开启随机重命名</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$originName</span>;              <span class="comment">//源文件名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$tmpFileName</span>;              <span class="comment">//临时文件名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$fileType</span>;               <span class="comment">//文件类型(文件后缀)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$fileSize</span>;               <span class="comment">//文件大小</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$newFileName</span>;              <span class="comment">//新文件名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$errorNum</span> = <span class="number">0</span>;             <span class="comment">//错误号</span></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$errorMess</span>=<span class="string">""</span>;             <span class="comment">//错误报告消息</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 用于设置成员属性（$path, $allowtype,$maxsize, $israndname）</span><br><span class="line">     * 可以通过连贯操作一次设置多个属性值</span><br><span class="line">     *<span class="doctag">@param</span>  string $key  成员属性名(不区分大小写)</span><br><span class="line">     *<span class="doctag">@param</span>  mixed  $val  为成员属性设置的值</span><br><span class="line">     *<span class="doctag">@return</span>  object     返回自己对象$this，可以用于连贯操作</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">set</span><span class="params">(<span class="variable">$key</span>, <span class="variable">$val</span>)</span></span>&#123;</span><br><span class="line">      <span class="variable">$key</span> = strtolower(<span class="variable">$key</span>); </span><br><span class="line">      <span class="keyword">if</span>( array_key_exists( <span class="variable">$key</span>, get_class_vars(get_class(<span class="variable">$this</span>) ) ) )&#123;</span><br><span class="line">        <span class="variable">$this</span>-&gt;setOption(<span class="variable">$key</span>, <span class="variable">$val</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable">$this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 调用该方法上传文件</span><br><span class="line">     * <span class="doctag">@param</span>  string $fileFile  上传文件的表单名称 </span><br><span class="line">     * <span class="doctag">@return</span> bool        如果上传成功返回数true </span><br><span class="line">     */</span></span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">upload</span><span class="params">(<span class="variable">$fileField</span>)</span> </span>&#123;</span><br><span class="line">      <span class="variable">$return</span> = <span class="keyword">true</span>;</span><br><span class="line">      <span class="comment">/* 检查文件路径是滞合法 */</span></span><br><span class="line">      <span class="keyword">if</span>( !<span class="variable">$this</span>-&gt;checkFilePath() ) &#123;       </span><br><span class="line">        <span class="variable">$this</span>-&gt;errorMess = <span class="variable">$this</span>-&gt;getError();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">/* 将文件上传的信息取出赋给变量 */</span></span><br><span class="line">      <span class="variable">$name</span> = <span class="variable">$_FILES</span>[<span class="variable">$fileField</span>][<span class="string">'name'</span>];</span><br><span class="line">      <span class="variable">$tmp_name</span> = <span class="variable">$_FILES</span>[<span class="variable">$fileField</span>][<span class="string">'tmp_name'</span>];</span><br><span class="line">      <span class="variable">$size</span> = <span class="variable">$_FILES</span>[<span class="variable">$fileField</span>][<span class="string">'size'</span>];</span><br><span class="line">      <span class="variable">$error</span> = <span class="variable">$_FILES</span>[<span class="variable">$fileField</span>][<span class="string">'error'</span>];</span><br><span class="line">  </span><br><span class="line">      <span class="comment">/* 如果是多个文件上传则$file["name"]会是一个数组 */</span></span><br><span class="line">      <span class="keyword">if</span>(is_Array(<span class="variable">$name</span>))&#123;    </span><br><span class="line">        <span class="variable">$errors</span>=<span class="keyword">array</span>();</span><br><span class="line">        <span class="comment">/*多个文件上传则循环处理 ， 这个循环只有检查上传文件的作用，并没有真正上传 */</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; count(<span class="variable">$name</span>); <span class="variable">$i</span>++)&#123; </span><br><span class="line">          <span class="comment">/*设置文件信息 */</span></span><br><span class="line">          <span class="keyword">if</span>(<span class="variable">$this</span>-&gt;setFiles(<span class="variable">$name</span>[<span class="variable">$i</span>],<span class="variable">$tmp_name</span>[<span class="variable">$i</span>],<span class="variable">$size</span>[<span class="variable">$i</span>],<span class="variable">$error</span>[<span class="variable">$i</span>] )) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!<span class="variable">$this</span>-&gt;checkFileSize() || !<span class="variable">$this</span>-&gt;checkFileType())&#123;</span><br><span class="line">              <span class="variable">$errors</span>[] = <span class="variable">$this</span>-&gt;getError();</span><br><span class="line">              <span class="variable">$return</span>=<span class="keyword">false</span>; </span><br><span class="line">            &#125;</span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="variable">$errors</span>[] = <span class="variable">$this</span>-&gt;getError();</span><br><span class="line">            <span class="variable">$return</span>=<span class="keyword">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">/* 如果有问题，则重新初使化属性 */</span></span><br><span class="line">          <span class="keyword">if</span>(!<span class="variable">$return</span>)          </span><br><span class="line">            <span class="variable">$this</span>-&gt;setFiles();</span><br><span class="line">        &#125;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$return</span>)&#123;</span><br><span class="line">          <span class="comment">/* 存放所有上传后文件名的变量数组 */</span></span><br><span class="line">          <span class="variable">$fileNames</span> = <span class="keyword">array</span>();      </span><br><span class="line">          <span class="comment">/* 如果上传的多个文件都是合法的，则通过销魂循环向服务器上传文件 */</span></span><br><span class="line">          <span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; count(<span class="variable">$name</span>); <span class="variable">$i</span>++)&#123; </span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$this</span>-&gt;setFiles(<span class="variable">$name</span>[<span class="variable">$i</span>], <span class="variable">$tmp_name</span>[<span class="variable">$i</span>], <span class="variable">$size</span>[<span class="variable">$i</span>], <span class="variable">$error</span>[<span class="variable">$i</span>] )) &#123;</span><br><span class="line">              <span class="variable">$this</span>-&gt;setNewFileName(); </span><br><span class="line">              <span class="keyword">if</span>(!<span class="variable">$this</span>-&gt;copyFile())&#123;</span><br><span class="line">                <span class="variable">$errors</span>[] = <span class="variable">$this</span>-&gt;getError();</span><br><span class="line">                <span class="variable">$return</span> = <span class="keyword">false</span>;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="variable">$fileNames</span>[] = <span class="variable">$this</span>-&gt;newFileName;  </span><br><span class="line">            &#125;          </span><br><span class="line">          &#125;</span><br><span class="line">          <span class="variable">$this</span>-&gt;newFileName = <span class="variable">$fileNames</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$this</span>-&gt;errorMess = <span class="variable">$errors</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$return</span>;</span><br><span class="line">      <span class="comment">/*上传单个文件处理方法*/</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">/* 设置文件信息 */</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$this</span>-&gt;setFiles(<span class="variable">$name</span>,<span class="variable">$tmp_name</span>,<span class="variable">$size</span>,<span class="variable">$error</span>)) &#123;</span><br><span class="line">          <span class="comment">/* 上传之前先检查一下大小和类型 */</span></span><br><span class="line">          <span class="keyword">if</span>(<span class="variable">$this</span>-&gt;checkFileSize() &amp;&amp; <span class="variable">$this</span>-&gt;checkFileType())&#123; </span><br><span class="line">            <span class="comment">/* 为上传文件设置新文件名 */</span></span><br><span class="line">            <span class="variable">$this</span>-&gt;setNewFileName(); </span><br><span class="line">            <span class="comment">/* 上传文件  返回0为成功， 小于0都为错误 */</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$this</span>-&gt;copyFile())&#123; </span><br><span class="line">              <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              <span class="variable">$return</span>=<span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="variable">$return</span>=<span class="keyword">false</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="variable">$return</span>=<span class="keyword">false</span>; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果$return为false, 则出错，将错误信息保存在属性errorMess中</span></span><br><span class="line">        <span class="keyword">if</span>(!<span class="variable">$return</span>)</span><br><span class="line">          <span class="variable">$this</span>-&gt;errorMess=<span class="variable">$this</span>-&gt;getError();  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span><br><span class="line">     * 获取上传后的文件名称</span><br><span class="line">     * <span class="doctag">@param</span>  void   没有参数</span><br><span class="line">     * <span class="doctag">@return</span> string 上传后，新文件的名称， 如果是多文件上传返回数组</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getFileName</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable">$this</span>-&gt;newFileName;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 上传失败后，调用该方法则返回，上传出错信息</span><br><span class="line">     * <span class="doctag">@param</span>  void   没有参数</span><br><span class="line">     * <span class="doctag">@return</span> string  返回上传文件出错的信息报告，如果是多文件上传返回数组</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getErrorMsg</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable">$this</span>-&gt;errorMess;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 设置上传出错信息 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">getError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="variable">$str</span> = <span class="string">"上传文件&lt;font color='red'&gt;&#123;$this-&gt;originName&#125;&lt;/font&gt;时出错 : "</span>;</span><br><span class="line">      <span class="keyword">switch</span> (<span class="variable">$this</span>-&gt;errorNum) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>: <span class="variable">$str</span> .= <span class="string">"没有文件被上传"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>: <span class="variable">$str</span> .= <span class="string">"文件只有部分被上传"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>: <span class="variable">$str</span> .= <span class="string">"上传文件的大小超过了HTML表单中MAX_FILE_SIZE选项指定的值"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: <span class="variable">$str</span> .= <span class="string">"上传的文件超过了php.ini中upload_max_filesize选项限制的值"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> -<span class="number">1</span>: <span class="variable">$str</span> .= <span class="string">"未允许类型"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> -<span class="number">2</span>: <span class="variable">$str</span> .= <span class="string">"文件过大,上传的文件不能超过&#123;$this-&gt;maxsize&#125;个字节"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> -<span class="number">3</span>: <span class="variable">$str</span> .= <span class="string">"上传失败"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> -<span class="number">4</span>: <span class="variable">$str</span> .= <span class="string">"建立存放上传文件目录失败，请重新指定上传目录"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> -<span class="number">5</span>: <span class="variable">$str</span> .= <span class="string">"必须指定上传文件的路径"</span>; <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>: <span class="variable">$str</span> .= <span class="string">"未知错误"</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable">$str</span>.<span class="string">'&lt;br&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 设置和$_FILES有关的内容 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">setFiles</span><span class="params">(<span class="variable">$name</span>=<span class="string">""</span>, <span class="variable">$tmp_name</span>=<span class="string">""</span>, <span class="variable">$size</span>=<span class="number">0</span>, <span class="variable">$error</span>=<span class="number">0</span>)</span> </span>&#123;</span><br><span class="line">      <span class="variable">$this</span>-&gt;setOption(<span class="string">'errorNum'</span>, <span class="variable">$error</span>);</span><br><span class="line">      <span class="keyword">if</span>(<span class="variable">$error</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      <span class="variable">$this</span>-&gt;setOption(<span class="string">'originName'</span>, <span class="variable">$name</span>);</span><br><span class="line">      <span class="variable">$this</span>-&gt;setOption(<span class="string">'tmpFileName'</span>,<span class="variable">$tmp_name</span>);</span><br><span class="line">      <span class="variable">$aryStr</span> = explode(<span class="string">"."</span>, <span class="variable">$name</span>);</span><br><span class="line">      <span class="variable">$this</span>-&gt;setOption(<span class="string">'fileType'</span>, strtolower(<span class="variable">$aryStr</span>[count(<span class="variable">$aryStr</span>)-<span class="number">1</span>]));</span><br><span class="line">      <span class="variable">$this</span>-&gt;setOption(<span class="string">'fileSize'</span>, <span class="variable">$size</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 为单个成员属性设置值 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">setOption</span><span class="params">(<span class="variable">$key</span>, <span class="variable">$val</span>)</span> </span>&#123;</span><br><span class="line">      <span class="variable">$this</span>-&gt;<span class="variable">$key</span> = <span class="variable">$val</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 设置上传后的文件名称 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">setNewFileName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$this</span>-&gt;israndname) &#123;</span><br><span class="line">        <span class="variable">$this</span>-&gt;setOption(<span class="string">'newFileName'</span>, <span class="variable">$this</span>-&gt;proRandName());  </span><br><span class="line">      &#125; <span class="keyword">else</span>&#123; </span><br><span class="line">        <span class="variable">$this</span>-&gt;setOption(<span class="string">'newFileName'</span>, <span class="variable">$this</span>-&gt;originName);</span><br><span class="line">      &#125; </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 检查上传的文件是否是合法的类型 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">checkFileType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (in_array(strtolower(<span class="variable">$this</span>-&gt;fileType), <span class="variable">$this</span>-&gt;allowtype)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable">$this</span>-&gt;setOption(<span class="string">'errorNum'</span>, -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 检查上传的文件是否是允许的大小 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">checkFileSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$this</span>-&gt;fileSize &gt; <span class="variable">$this</span>-&gt;maxsize) &#123;</span><br><span class="line">        <span class="variable">$this</span>-&gt;setOption(<span class="string">'errorNum'</span>, -<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 检查是否有存放上传文件的目录 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">checkFilePath</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$this</span>-&gt;path))&#123;</span><br><span class="line">        <span class="variable">$this</span>-&gt;setOption(<span class="string">'errorNum'</span>, -<span class="number">5</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (!file_exists(<span class="variable">$this</span>-&gt;path) || !is_writable(<span class="variable">$this</span>-&gt;path)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!@mkdir(<span class="variable">$this</span>-&gt;path, <span class="number">0755</span>)) &#123;</span><br><span class="line">          <span class="variable">$this</span>-&gt;setOption(<span class="string">'errorNum'</span>, -<span class="number">4</span>);</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 设置随机文件名 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">proRandName</span><span class="params">()</span> </span>&#123;    </span><br><span class="line">      <span class="keyword">if</span>(<span class="variable">$this</span>-&gt;isshowfirm)&#123;</span><br><span class="line">        <span class="variable">$fileName</span> = date(<span class="string">'YmdHis'</span>).<span class="string">"_"</span>.rand(<span class="number">10000</span>,<span class="number">99999</span>).<span class="string">"_"</span>.<span class="variable">$this</span>-&gt;isshowfirm;    </span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="variable">$fileName</span> = date(<span class="string">'YmdHis'</span>).<span class="string">"_"</span>.rand(<span class="number">10000</span>,<span class="number">99999</span>);      </span><br><span class="line">      &#125;      </span><br><span class="line">      <span class="keyword">return</span> <span class="variable">$fileName</span>.<span class="string">'.'</span>.<span class="variable">$this</span>-&gt;fileType; </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/* 复制上传文件到指定的位置 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">copyFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(!<span class="variable">$this</span>-&gt;errorNum) &#123;</span><br><span class="line">        <span class="variable">$path</span> = rtrim(<span class="variable">$this</span>-&gt;path, <span class="string">'/'</span>).<span class="string">'/'</span>;</span><br><span class="line">        <span class="variable">$path</span> .= <span class="variable">$this</span>-&gt;newFileName;</span><br><span class="line">        <span class="keyword">if</span> (@move_uploaded_file(<span class="variable">$this</span>-&gt;tmpFileName, <span class="variable">$path</span>)) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="variable">$this</span>-&gt;setOption(<span class="string">'errorNum'</span>, -<span class="number">3</span>);</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="u524D_u7AEF_u4EE3_u7801_uFF08_u4F7F_u7528_u57FA_u4E8Ebootstrap_u7684fileinput_u4E0A_u4F20_u63D2_u4EF6_uFF09_uFF1A"><a href="#u524D_u7AEF_u4EE3_u7801_uFF08_u4F7F_u7528_u57FA_u4E8Ebootstrap_u7684fileinput_u4E0A_u4F20_u63D2_u4EF6_uFF09_uFF1A" class="headerlink" title="前端代码（使用基于bootstrap的fileinput上传插件）："></a>前端代码（使用基于bootstrap的fileinput上传插件）：</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"zh-cn"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">http-equiv</span>=<span class="value">"X-UA-Compatible"</span> <span class="attribute">content</span>=<span class="value">"IE=edge"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"viewport"</span> <span class="attribute">content</span>=<span class="value">"width=device-width, initial-scale=1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">title</span>&gt;</span>退单<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"/css/bootstrap.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"/fileinput/css/fileinput.min.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/js/jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.</span><br><span class="line">     This must be loaded before fileinput.min.js --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/fileinput/js/plugins/canvas-to-blob.min.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/fileinput/js/fileinput.min.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- bootstrap.js below is only needed if you wish to the feature of viewing details</span><br><span class="line">     of text file preview via modal dialog --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/js/bootstrap.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- optionally if you need translation for your language then include </span><br><span class="line">    locale file as mentioned below --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"/fileinput/js/fileinput_locale_zh.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css"></span><br><span class="line"><span class="id">#tddiv</span><span class="rules">&#123;<span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">30px</span></span></span>;&#125;</span></span><br><span class="line"><span class="tag">body</span><span class="rules">&#123;<span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">600px</span></span></span>;</span><br><span class="line">    &#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span>     </span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-sm-12 column"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-sm-12"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">span</span> <span class="attribute">style</span>=<span class="value">"color:red"</span>&gt;</span> </span><br><span class="line">        注：2016年3月1日起申请退单必须上传相关录音或图片（二选一）,成功上传并附带退单理由才可成功申请退单</span><br><span class="line">      <span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"tddiv"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">form</span> <span class="attribute">class</span>=<span class="value">"form-horizontal"</span> <span class="attribute">name</span>=<span class="value">"sub_td"</span> <span class="attribute">role</span>=<span class="value">"form"</span> <span class="attribute">action</span>=<span class="value">"/firms/sub_td"</span> <span class="attribute">enctype</span>=<span class="value">"multipart/form-data"</span> <span class="attribute">method</span>=<span class="value">"post"</span> <span class="attribute">onsubmit</span>=<span class="value">"return dosubmit()"</span>/&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form-group"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"inputPassword3"</span> <span class="attribute">class</span>=<span class="value">"col-sm-2 control-label"</span>&gt;</span>退单理由：<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-sm-8"</span>&gt;</span>           </span><br><span class="line">            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"td_ly"</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"form-control"</span>/&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">div</span>&gt;</span>          </span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>           </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form-group"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"inputPassword3"</span> <span class="attribute">class</span>=<span class="value">"col-sm-2 control-label"</span>&gt;</span>电话录音：<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-sm-10"</span>&gt;</span>           </span><br><span class="line">           <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"up_record"</span> <span class="attribute">type</span>=<span class="value">"file"</span> <span class="attribute">class</span>=<span class="value">"file"</span> <span class="attribute">name</span>=<span class="value">"up_record[]"</span> <span class="attribute">data-preview-file-type</span>=<span class="value">"text"</span>/&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>         </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form-group"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="title">label</span> <span class="attribute">for</span>=<span class="value">"inputPassword3"</span> <span class="attribute">class</span>=<span class="value">"col-sm-2 control-label"</span>&gt;</span>图片上传：<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-sm-10"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="title">input</span> <span class="attribute">id</span>=<span class="value">"up_image"</span> <span class="attribute">type</span>=<span class="value">"file"</span> <span class="attribute">class</span>=<span class="value">"file"</span> <span class="attribute">name</span>=<span class="value">"up_image[]"</span> <span class="attribute">data-preview-file-type</span>=<span class="value">"text"</span> <span class="attribute">multiple</span>/&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>                                       </span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"form-group"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"col-sm-offset-2 col-sm-2"</span>&gt;</span>            </span><br><span class="line">            <span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"baoming_id"</span> <span class="attribute">id</span>=<span class="value">"baoming_id"</span> <span class="attribute">type</span>=<span class="value">"hidden"</span> <span class="attribute">value</span>=<span class="value">"<span class="php"><span class="preprocessor">&lt;?php</span> <span class="keyword">echo</span> <span class="variable">$_GET</span>[<span class="string">'bm_id'</span>];<span class="preprocessor">?&gt;</span></span>"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">button</span> <span class="attribute">type</span>=<span class="value">"submit"</span> <span class="attribute">class</span>=<span class="value">"btn btn-success btn-block btn_sub"</span> <span class="attribute">id</span>=<span class="value">"btn_sub"</span> <span class="attribute">data-loading-text</span>=<span class="value">"请稍等..."</span> <span class="attribute">autocomplete</span>=<span class="value">"off"</span>&gt;</span>提交<span class="tag">&lt;/<span class="title">button</span>&gt;</span>          </span><br><span class="line">          <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--           &lt;div class="col-sm-2"&gt;</span><br><span class="line">             &lt;button type="button" class="btn btn-default btn-block"&gt;取消&lt;/button&gt;             </span><br><span class="line">          &lt;/div&gt;          --&gt;</span> </span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span>            </span><br><span class="line">      <span class="tag">&lt;/<span class="title">form</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">  <span class="comment">//录音上传</span></span><br><span class="line">  $(<span class="string">'#up_record'</span>).fileinput(&#123;</span><br><span class="line">      language: <span class="string">'zh'</span>, <span class="comment">//设置语言</span></span><br><span class="line">      <span class="comment">// uploadUrl: "/firms/sub_td", //上传的地址</span></span><br><span class="line">      allowedFileExtensions : [<span class="string">'3gp'</span>,<span class="string">'mp3'</span>,<span class="string">'wav'</span>,<span class="string">'au'</span>,<span class="string">'aiff'</span>,<span class="string">'amr'</span>,<span class="string">'awb'</span>,<span class="string">'aac'</span>,<span class="string">'pps_amr'</span>],<span class="comment">//接收的文件后缀,</span></span><br><span class="line">      maxFileCount: <span class="number">1</span>,</span><br><span class="line">      enctype: <span class="string">'multipart/form-data'</span>,</span><br><span class="line">      showUpload:  <span class="literal">false</span>, <span class="comment">//是否显示上传按钮</span></span><br><span class="line">      showCaption: <span class="literal">false</span>,<span class="comment">//是否显示标题</span></span><br><span class="line">      browseClass: <span class="string">"btn btn-primary"</span>, <span class="comment">//按钮样式             </span></span><br><span class="line">      previewFileIcon: <span class="string">"&lt;i class='glyphicon glyphicon-king'&gt;&lt;/i&gt;"</span>, </span><br><span class="line">      msgFilesTooMany: <span class="string">"选择上传的文件数量(&#123;n&#125;) 超过允许的最大数值&#123;m&#125;！"</span>,</span><br><span class="line">      uploadExtraData:&#123;</span><br><span class="line">        baoming_id: $(<span class="string">"#baoming_id"</span>).val(),</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//图片上传</span></span><br><span class="line">  $(<span class="string">'#up_image'</span>).fileinput(&#123;</span><br><span class="line">      language: <span class="string">'zh'</span>, <span class="comment">//设置语言</span></span><br><span class="line">      <span class="comment">// uploadUrl: "/firms/sub_td", //上传的地址</span></span><br><span class="line">      allowedFileExtensions : [<span class="string">'jpg'</span>, <span class="string">'png'</span>,<span class="string">'gif'</span>],<span class="comment">//接收的文件后缀,</span></span><br><span class="line">      maxFileCount: <span class="number">3</span>,</span><br><span class="line">      enctype: <span class="string">'multipart/form-data'</span>,</span><br><span class="line">      showUpload:  <span class="literal">false</span>, <span class="comment">//是否显示上传按钮</span></span><br><span class="line">      showCaption: <span class="literal">false</span>,<span class="comment">//是否显示标题</span></span><br><span class="line">      browseClass: <span class="string">"btn btn-primary"</span>, <span class="comment">//按钮样式             </span></span><br><span class="line">      previewFileIcon: <span class="string">"&lt;i class='glyphicon glyphicon-king'&gt;&lt;/i&gt;"</span>, </span><br><span class="line">      msgFilesTooMany: <span class="string">"选择上传的文件数量(&#123;n&#125;) 超过允许的最大数值&#123;m&#125;！"</span>,</span><br><span class="line">      uploadExtraData:&#123;</span><br><span class="line">        baoming_id: $(<span class="string">"#baoming_id"</span>).val(),</span><br><span class="line">      &#125;      </span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">dosubmit</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"#btn_sub"</span>).attr(<span class="string">'disabled'</span>,<span class="string">'disabled'</span>);</span><br><span class="line">    $(<span class="string">"#btn_sub"</span>).html(<span class="string">'正在提交,请等待...'</span>);  </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//提交表单</span></span><br><span class="line">  $(<span class="string">"#btn_sub"</span>).on(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> td_liyou = $(<span class="string">"#td_ly"</span>).val();</span><br><span class="line">    <span class="keyword">if</span>(td_liyou != <span class="literal">null</span>)&#123;            </span><br><span class="line">      <span class="keyword">var</span> trimtd_liyou = td_liyou.replace(<span class="regexp">/(^\s*)|(\s*$)/g</span>, <span class="string">""</span>);</span><br><span class="line">      <span class="keyword">var</span> ly_len = trimtd_liyou.length;</span><br><span class="line">      <span class="keyword">if</span>(ly_len&lt;<span class="number">1</span>)&#123;</span><br><span class="line">          alert(<span class="string">"对不起，退单理由不能为空"</span>);</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="built_in">window</span>.parent.settdly($(<span class="string">"#baoming_id"</span>).val(),td_liyou);</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="u540E_u7AEFphp_uFF1A"><a href="#u540E_u7AEFphp_uFF1A" class="headerlink" title="后端php："></a>后端php：</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 退单保存</span><br><span class="line"> * FileUpload</span><br><span class="line"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sub_td</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="variable">$this</span>-&gt;autoRender = <span class="keyword">false</span>;</span><br><span class="line">    <span class="variable">$flag</span> = <span class="keyword">false</span>;</span><br><span class="line">    <span class="variable">$firm_sid</span>   = <span class="variable">$this</span>-&gt;users[<span class="string">'id'</span>];<span class="comment">//商家登录ID</span></span><br><span class="line">    <span class="variable">$baoming_id</span> = <span class="variable">$_POST</span>[<span class="string">'baoming_id'</span>];        </span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$firm_sid</span>) || <span class="keyword">empty</span>(<span class="variable">$baoming_id</span>))&#123;</span><br><span class="line">        <span class="keyword">echo</span> json_encode(<span class="keyword">array</span>(<span class="string">'code'</span>=&gt; <span class="number">403</span>,<span class="string">'str'</span> =&gt; <span class="string">'缺少参数！'</span>));</span><br><span class="line">        <span class="keyword">exit</span>;</span><br><span class="line">    &#125;        </span><br><span class="line">    <span class="variable">$inf</span> = <span class="variable">$this</span>-&gt;Baomings-&gt;getBaomings(<span class="keyword">array</span>(<span class="string">'firm_id'</span>=&gt;<span class="variable">$firm_sid</span>,<span class="string">'baoming_id'</span>=&gt; <span class="variable">$baoming_id</span>),<span class="string">''</span>,<span class="string">'Baomings.id desc'</span>,<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span>(count(<span class="variable">$inf</span>) == <span class="number">0</span> || !is_array(<span class="variable">$inf</span>))&#123;</span><br><span class="line">        <span class="keyword">echo</span> json_encode(<span class="keyword">array</span>(<span class="string">'code'</span>=&gt; <span class="number">403</span>,<span class="string">'str'</span> =&gt; <span class="string">'公司所对应的报名编号不存在！'</span>));</span><br><span class="line">        <span class="keyword">exit</span>;</span><br><span class="line">    &#125;          </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="variable">$_FILES</span>[<span class="string">'up_record'</span>]))&#123;        </span><br><span class="line">        <span class="comment"># 实例化上传类（上传录音）</span></span><br><span class="line">        <span class="variable">$up</span> = <span class="keyword">new</span> FileUploadComponent;</span><br><span class="line">        <span class="comment">//设置属性(上传的位置， 大小， 类型， 名是是否要随机生成)</span></span><br><span class="line">        <span class="variable">$up</span> -&gt; set(<span class="string">"path"</span>, <span class="string">"/data/NetImage/firms/tdupload/tape/"</span>);</span><br><span class="line">        <span class="comment">// $up -&gt; set("path", "./tduploads/");</span></span><br><span class="line">        <span class="variable">$up</span> -&gt; set(<span class="string">"maxsize"</span>, <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>); <span class="comment"># 10MB</span></span><br><span class="line">        <span class="variable">$up</span> -&gt; set(<span class="string">"allowtype"</span>, <span class="keyword">array</span>(<span class="string">"3gp"</span>,<span class="string">"mp3"</span>,<span class="string">"wav"</span>,<span class="string">"au"</span>,<span class="string">"aiff"</span>,<span class="string">"amr"</span>,<span class="string">"awb"</span>,<span class="string">"aac"</span>,<span class="string">"pps_amr"</span>));</span><br><span class="line">        <span class="variable">$up</span> -&gt; set(<span class="string">"israndname"</span>, <span class="keyword">true</span>); <span class="comment"># 自动命名    </span></span><br><span class="line">        <span class="variable">$up</span> -&gt; set(<span class="string">"isshowfirm"</span>, <span class="variable">$firm_sid</span>); <span class="comment"># 拼接firmid              </span></span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$up</span> -&gt; upload(<span class="string">"up_record"</span>)) &#123; <span class="comment"># 录音上传成功</span></span><br><span class="line">            <span class="comment">//获取上传后文件名子</span></span><br><span class="line">            <span class="variable">$recorf</span>   = <span class="variable">$up</span>-&gt;getFileName();</span><br><span class="line">            <span class="variable">$countr</span>   = count(<span class="variable">$up</span>-&gt;getFileName()); </span><br><span class="line">            <span class="variable">$ftd_data</span> = <span class="keyword">array</span>();</span><br><span class="line">            <span class="variable">$ftd_data</span>[<span class="string">'firm_id'</span>]    = <span class="variable">$firm_sid</span>;</span><br><span class="line">            <span class="variable">$ftd_data</span>[<span class="string">'baoming_id'</span>] = <span class="variable">$baoming_id</span>;</span><br><span class="line">            <span class="variable">$ftd_data</span>[<span class="string">'type'</span>]       = <span class="number">0</span>; <span class="comment"># 类型录音</span></span><br><span class="line">            <span class="variable">$ftd_data</span>[<span class="string">'create_time'</span>] = date(<span class="string">"Y-m-d H:i:s"</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">0</span>; <span class="variable">$i</span> &lt;= <span class="variable">$countr</span>; <span class="variable">$i</span>++) &#123; </span><br><span class="line">               <span class="variable">$ftd_data</span>[<span class="string">'src'</span>] = <span class="variable">$recorf</span>[<span class="variable">$i</span>];</span><br><span class="line">               <span class="variable">$resr</span> = <span class="variable">$this</span>-&gt;FirmTdUpload-&gt;saveAll(<span class="variable">$ftd_data</span>);    </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$flag</span> = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//获取上传失败以后的错误提示</span></span><br><span class="line">            <span class="comment">// var_dump($up-&gt;getErrorMsg());</span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'没有上传录音'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="comment"># 上传录音end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="variable">$_FILES</span>[<span class="string">'up_image'</span>]))&#123;        </span><br><span class="line">        <span class="comment"># 实例化上传类（上传图片）</span></span><br><span class="line">        <span class="variable">$upi</span> = <span class="keyword">new</span> FileUploadComponent;</span><br><span class="line">        <span class="comment">//设置属性(上传的位置， 大小， 类型， 名是是否要随机生成)</span></span><br><span class="line">        <span class="variable">$upi</span> -&gt; set(<span class="string">"path"</span>, <span class="string">"/data/NetImage/firms/tdupload/image/"</span>);</span><br><span class="line">        <span class="comment">// $upi -&gt; set("path", "./tduploads/");</span></span><br><span class="line">        <span class="variable">$upi</span> -&gt; set(<span class="string">"maxsize"</span>, <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>); <span class="comment"># 10MB</span></span><br><span class="line">        <span class="variable">$upi</span> -&gt; set(<span class="string">"allowtype"</span>, <span class="keyword">array</span>(<span class="string">"jpeg"</span>,<span class="string">"gif"</span>,<span class="string">"png"</span>,<span class="string">"jpg"</span>));</span><br><span class="line">        <span class="variable">$upi</span> -&gt; set(<span class="string">"israndname"</span>, <span class="keyword">true</span>); <span class="comment"># 自动命名      </span></span><br><span class="line">        <span class="variable">$upi</span> -&gt; set(<span class="string">"isshowfirm"</span>, <span class="variable">$firm_sid</span>); <span class="comment"># 拼接firmid</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$upi</span> -&gt; upload(<span class="string">"up_image"</span>)) &#123; <span class="comment"># 上传成功</span></span><br><span class="line">            <span class="comment">//获取上传后文件名子</span></span><br><span class="line">            <span class="variable">$recori</span>   = <span class="variable">$upi</span>-&gt;getFileName();</span><br><span class="line">            <span class="variable">$counti</span>   = count(<span class="variable">$upi</span>-&gt;getFileName()); </span><br><span class="line">            <span class="variable">$ftd_data</span> = <span class="keyword">array</span>();</span><br><span class="line">            <span class="variable">$ftd_data</span>[<span class="string">'firm_id'</span>]    = <span class="variable">$firm_sid</span>;</span><br><span class="line">            <span class="variable">$ftd_data</span>[<span class="string">'baoming_id'</span>] = <span class="variable">$baoming_id</span>;</span><br><span class="line">            <span class="variable">$ftd_data</span>[<span class="string">'type'</span>]       = <span class="number">1</span>; <span class="comment"># 类型图片</span></span><br><span class="line">            <span class="variable">$ftd_data</span>[<span class="string">'create_time'</span>] = date(<span class="string">"Y-m-d H:i:s"</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="variable">$i</span>=<span class="number">0</span>; <span class="variable">$i</span> &lt;= <span class="variable">$counti</span>; <span class="variable">$i</span>++) &#123; </span><br><span class="line">               <span class="variable">$ftd_data</span>[<span class="string">'src'</span>] = <span class="variable">$recori</span>[<span class="variable">$i</span>];</span><br><span class="line">               <span class="variable">$resi</span> = <span class="variable">$this</span>-&gt;FirmTdUpload-&gt;saveAll(<span class="variable">$ftd_data</span>);    </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// echo json_encode(array('code'=&gt; 200,'str' =&gt; '图片上传成功！', 'id' =&gt; $baoming_id));</span></span><br><span class="line">            <span class="variable">$flag</span> = <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//获取上传失败以后的错误提示</span></span><br><span class="line">            <span class="comment">// var_dump($upi-&gt;getErrorMsg());</span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'没有上传图片！'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="comment">#上传图片end</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 判断标记变量</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$flag</span>)&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;script&gt;window.parent.moniclick('</span>.<span class="variable">$baoming_id</span>.<span class="string">');javascript:parent.jQuery.fancybox.close();&lt;/script&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></the>
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/03/16/Cakephp事务/">
+                    Cakephp事务
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/03/03/iframe调用父级页面/">
+                    iframe调用父级页面
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#php_u4E0A_u4F20_u6587_u4EF6_u7C7B_3A"><span class="toc-number">1.</span> <span class="toc-text">php上传文件类:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u524D_u7AEF_u4EE3_u7801_uFF08_u4F7F_u7528_u57FA_u4E8Ebootstrap_u7684fileinput_u4E0A_u4F20_u63D2_u4EF6_uFF09_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">前端代码（使用基于bootstrap的fileinput上传插件）：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#u540E_u7AEFphp_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">后端php：</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"上传文件实例　| Fhy的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/03/16/Cakephp事务/" title="上一篇: Cakephp事务">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/03/03/iframe调用父级页面/" title="下一篇: iframe调用父级页面">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/28/Git-Protocol/">Git Protocol</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/用c-为php写扩展/">用c++为php编写扩展</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/03/CodeAnyWhere/">CodeAnyWhere</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/08/vim快捷键/">vim快捷键</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/07/右键点击文件上传到七牛选项/">右键点击文件增加“上传到七牛“选项</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/19/毕淑敏《提醒幸福》/">毕淑敏《提醒幸福》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/08/09/js导出excel/">js导出excel</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/01/Centos7安装samba服务/">Centos7安装samba服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/16/Cakephp事务/">Cakephp事务</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/07/上传文件实例/">上传文件实例</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/03/iframe调用父级页面/">iframe调用父级页面</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/21/Centos-7-MariaDB/">Centos 7 MariaDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/20/毕淑敏《爱怕什么》/">毕淑敏《爱怕什么》</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/20/My-centos-virtual/">My centos virtual</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/18/js-php-时间验证/">js&php 时间验证</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/18/希桅的第一次面试/">希桅的第一次面试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/16/Hexo-环境迁移/">Hexo 环境迁移</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/Cakephp-引用另一类的几种方法/">Cakephp 引用另一类的几种方法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/Bootstrap模态层（弹出层）回调/">Bootstrap模态层（弹出层）回调</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/15/PHP-合并数组-追加数组例子/">PHP 合并数组 追加数组例子</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/14/javascript中split字符串分割函数/">javascript中split字符串分割函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/毕淑敏：我很重要/">毕淑敏：我很重要</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/生命短暂，经不起等待！/">生命短暂，经不起等待！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/留得住的不需用力，留不住的无需费力/">留得住的不需用力，留不住的无需费力</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/现在好好活着，就是最好的活法/">现在好好活着，就是最好的活法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/百善孝为先，必读的20句儒家经典！/">百善孝为先，必读的20句儒家经典！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/你的努力，与虚荣无关/">你的努力，与虚荣无关</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/人与人，千万别走得太近！/">人与人，千万别走得太近！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/心态好，一切都好！改变你一生运势的七大心境！/">心态好，一切都好！改变你一生运势的七大心境！</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/13/58句毕淑敏经典语录/">58句毕淑敏经典语录。</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016-2017 Fhy
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> Theme <a href="https://github.com/fanhengyuan/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+             post: ".article-entry a[href], .copyright a[href]", 
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<!-- <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script> -->
+  </div>
+</body>
+</html>
