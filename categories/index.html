@@ -105,7 +105,7 @@
         timeout: 5000,
     });
 	$(document).on('pjax:complete', function() { // 加载各种类
-		pajx_loadDuoShuo();
+		// pajx_loadDuoShuo();
 		load_tag_color();
 		use_fancybox();
 	});
@@ -124,16 +124,16 @@
 		});
 
 	}
-	function pajx_loadDuoShuo(){
-		var dus=$(".ds-thread");
-	    if($(dus).length==1){
-			var el = document.createElement('div');
-			el.setAttribute('data-thread-key',$(dus).attr("data-thread-key"));//必选参数
-			el.setAttribute('data-url',$(dus).attr("data-url"));
-			DUOSHUO.EmbedThread(el);
-			$(dus).html(el);
-	    }
-	}
+	// function pajx_loadDuoShuo(){
+	// 	var dus=$(".ds-thread");
+	//     if($(dus).length==1){
+	// 		var el = document.createElement('div');
+	// 		el.setAttribute('data-thread-key',$(dus).attr("data-thread-key"));//必选参数
+	// 		el.setAttribute('data-url',$(dus).attr("data-url"));
+	// 		DUOSHUO.EmbedThread(el);
+	// 		$(dus).html(el);
+	//     }
+	// }
 	function load_tag_color() {
 		$(".body-wrap .article").css("opacity", 1);
 		require(['/js/pc.js'], function(pc){
@@ -448,7 +448,8 @@
                 2016-2017 Fhy
             </div>
             <div class="footer-right">
-                Powered by <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> Theme <a href="https://github.com/fanhengyuan/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> <i class="fa fa-heart animated infinite pulse"></i>
+                Powered by <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a> Hosted by <a href="https://pages.coding.me" style="font-weight: bold" target="_blank">Coding Pages</a>
+ Theme <a href="https://github.com/fanhengyuan/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
