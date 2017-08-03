@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/astaxie/build-web-application-with-golang/master/zh/images/3.1.httpPOST.png?raw=true">
 <meta property="og:image" content="https://raw.githubusercontent.com/astaxie/build-web-application-with-golang/master/zh/images/3.1.response.png?raw=true">
 <meta property="og:image" content="https://raw.githubusercontent.com/astaxie/build-web-application-with-golang/master/zh/images/3.1.web.png?raw=true">
-<meta property="og:updated_time" content="2017-08-03T07:40:56.592Z">
+<meta property="og:updated_time" content="2017-08-03T07:43:44.090Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Web工作方式">
 <meta name="twitter:description" content="Web的工作方式">
@@ -383,7 +383,7 @@
           
         <p><excerpt in="" index="" |="" 首页摘要=""><br>Web的工作方式<a id="more"></a></excerpt></p>
 <p><the rest="" of="" contents="" |="" 余下全文=""></the></p>
-<h2 id="u51C6_u5907_u5DE5_u4F5C_uFF1A"><a href="#u51C6_u5907_u5DE5_u4F5C_uFF1A" class="headerlink" title="准备工作："></a>准备工作：</h2><h2 id="links"><a href="#links" class="headerlink" title="links"></a>links</h2><p><a href="https://github.com/astaxie/build-web-applic" target="_blank" rel="external">A golang ebook intro how to build a web with golang</a>{:target=”_blank”}<br><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/03.1.md" target="_blank" rel="external">原文</a>{:target=”_blank”}</p>
+<h2 id="u51C6_u5907_u5DE5_u4F5C_uFF1A"><a href="#u51C6_u5907_u5DE5_u4F5C_uFF1A" class="headerlink" title="准备工作："></a>准备工作：</h2><h2 id="links"><a href="#links" class="headerlink" title="links"></a>links</h2><p><a href="https://github.com/astaxie/build-web-applic" target="_blank">A golang ebook intro how to build a web with golang</a><br><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/03.1.md" target="_blank">原文</a></p>
 <h1 id="3-1_Web_u5DE5_u4F5C_u65B9_u5F0F"><a href="#3-1_Web_u5DE5_u4F5C_u65B9_u5F0F" class="headerlink" title="3.1 Web工作方式"></a>3.1 Web工作方式</h1><p>我们平时浏览网页的时候,会打开浏览器，输入网址后按下回车键，然后就会显示出你想要浏览的内容。在这个看似简单的用户行为背后，到底隐藏了些什么呢？</p>
 <p>对于普通的上网过程，系统其实是这样做的：浏览器本身是一个客户端，当你输入URL的时候，首先浏览器会去请求DNS服务器，通过DNS获取相应的域名对应的IP，然后通过IP地址找到IP对应的服务器后，要求建立TCP连接，等浏览器发送完HTTP Request（请求）包后，服务器接收到请求包之后才开始处理请求包，服务器调用自身服务，返回HTTP Response（响应）包；客户端收到来自服务器的响应后开始渲染这个Response包里的主体（body），等收到全部的内容随后断开与该服务器之间的TCP连接。</p>
 <p><img src="https://raw.githubusercontent.com/astaxie/build-web-application-with-golang/master/zh/images/3.1.web2.png?raw=true" alt=""></p>
