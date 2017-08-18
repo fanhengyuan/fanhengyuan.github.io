@@ -15,16 +15,15 @@
 
 
 
-<meta name="description">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos7安装samba服务">
 <meta property="og:url" content="http://aiti.me/2016/04/01/Centos7安装samba服务/index.html">
 <meta property="og:site_name" content="Fhy的博客">
-<meta property="og:description">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-12-26T02:47:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7安装samba服务">
-<meta name="twitter:description">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -49,7 +48,7 @@
     <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css">
 
 
 
@@ -379,22 +378,22 @@
 <blockquote>
 <p><a href="https://download.samba.org/pub/samba/stable/" target="_blank" rel="external">https://download.samba.org/pub/samba/stable/</a></p>
 </blockquote>
-<p>1、解压、编译、安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf samba-<span class="number">4.4</span>.<span class="number">0</span>.tar.gz</span><br><span class="line"><span class="built_in">cd</span> samba-<span class="number">4.4</span>.<span class="number">0</span></span><br><span class="line">./configure --prefix=/usr/<span class="built_in">local</span>/samba/</span><br><span class="line">make </span><br><span class="line">make install</span><br></pre></td></tr></table></figure></p>
+<p>1、解压、编译、安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">tar -zxvf samba-4.4.0.tar.gz</div><div class="line"><span class="built_in">cd</span> samba-4.4.0</div><div class="line">./configure --prefix=/usr/<span class="built_in">local</span>/samba/</div><div class="line">make </div><div class="line">make install</div></pre></td></tr></table></figure></p>
 <p>2、配置smb.conf，比较关键的一步</p>
 <p>安装目录下有很多smb.conf的例子，但/usr/local/samba/lib下却没有，所以必须copy.<br>也可以用链接的方法：<br>创建配置文件 </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir  /usr/<span class="built_in">local</span>/samba/etc </span><br><span class="line">vim    /usr/<span class="built_in">local</span>/samba/etc/smb.conf</span><br></pre></td></tr></table></figure>
-<p>编辑完配置文件后，保存。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln –s  /usr/<span class="built_in">local</span>/samba/etc/smb.conf   /usr/<span class="built_in">local</span>/samba/lib/smb.conf</span><br></pre></td></tr></table></figure></p>
-<p>3、配置smb.conf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#vim smb.conf</span></span><br></pre></td></tr></table></figure></p>
-<p>检查smb.conf配置语法是否错误和设置是否成功<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/usr/local/samba/bin/testparm</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir  /usr/<span class="built_in">local</span>/samba/etc </div><div class="line">vim    /usr/<span class="built_in">local</span>/samba/etc/smb.conf</div></pre></td></tr></table></figure>
+<p>编辑完配置文件后，保存。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ln –s  /usr/<span class="built_in">local</span>/samba/etc/smb.conf   /usr/<span class="built_in">local</span>/samba/lib/smb.conf</div></pre></td></tr></table></figure></p>
+<p>3、配置smb.conf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#vim smb.conf</span></div></pre></td></tr></table></figure></p>
+<p>检查smb.conf配置语法是否错误和设置是否成功<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/usr/local/samba/bin/testparm</span></div></pre></td></tr></table></figure></p>
 <p>[global]<br>        workgroup = MYGROUP<br>        server string = Samba Server Version %v<br>        log file = /var/log/samba/log.%m<br>        max log size = 50<br>        security = user<br>        map to guest = Bad Password<br>        passdb backend = tdbsam<br>        load printers = yes<br>        cups options = raw</p>
 <p>[html]<br>        path = /var/www/html/<br>        public = yes<br>        writable = yes</p>
 <p>4、增加smb用户<br>比如有一个用户名是kitty,那么：<br>此用户必须为linux实际用户，如不存在使用 useradd命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/samba/bin/smbpasswd <span class="operator">-a</span> fhy</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/<span class="built_in">local</span>/samba/bin/smbpasswd <span class="_">-a</span> fhy</div></pre></td></tr></table></figure>
 <p>就把fhy增加为smb用户了。</p>
-<p>5、启动smb服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/usr/local/samba/sbin/smbd -D</span></span><br><span class="line"><span class="comment">#/usr/local/samba/sbin/nmbd -D</span></span><br></pre></td></tr></table></figure></p>
-<p>6、设为开机启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure></p>
-<p>加入 并设为可执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span></span><br><span class="line">/usr/<span class="built_in">local</span>/samba/sbin/smbd -D</span><br><span class="line">/usr/<span class="built_in">local</span>/samba/sbin/winbindd -D</span><br><span class="line">/usr/<span class="built_in">local</span>/samba/sbin/nmbd -D</span><br></pre></td></tr></table></figure></p>
-<h1 id="u6DFB_u52A0_u9632_u706B_u5899_u89C4_u5219"><a href="#u6DFB_u52A0_u9632_u706B_u5899_u89C4_u5219" class="headerlink" title="添加防火墙规则"></a>添加防火墙规则</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=137/udp --permanent</span></span><br><span class="line">success</span><br><span class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=138/udp --permanent</span></span><br><span class="line">success</span><br><span class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=139/tcp --permanent</span></span><br><span class="line">success</span><br><span class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=445/tcp --permanent</span></span><br><span class="line">success</span><br><span class="line">[root@localhost ~]<span class="comment"># firewall-cmd --reload</span></span><br></pre></td></tr></table></figure>
+<p>5、启动smb服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/usr/local/samba/sbin/smbd -D</span></div><div class="line"><span class="comment">#/usr/local/samba/sbin/nmbd -D</span></div></pre></td></tr></table></figure></p>
+<p>6、设为开机启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/rc.d/rc.local</div></pre></td></tr></table></figure></p>
+<p>加入 并设为可执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">/usr/<span class="built_in">local</span>/samba/sbin/smbd -D</div><div class="line">/usr/<span class="built_in">local</span>/samba/sbin/winbindd -D</div><div class="line">/usr/<span class="built_in">local</span>/samba/sbin/nmbd -D</div></pre></td></tr></table></figure></p>
+<h1 id="添加防火墙规则"><a href="#添加防火墙规则" class="headerlink" title="添加防火墙规则"></a>添加防火墙规则</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=137/udp --permanent</span></div><div class="line">success</div><div class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=138/udp --permanent</span></div><div class="line">success</div><div class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=139/tcp --permanent</span></div><div class="line">success</div><div class="line">[root@localhost ~]<span class="comment"># firewall-cmd --zone=public --add-port=445/tcp --permanent</span></div><div class="line">success</div><div class="line">[root@localhost ~]<span class="comment"># firewall-cmd --reload</span></div></pre></td></tr></table></figure>
       
     </div>
     
@@ -426,7 +425,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u6DFB_u52A0_u9632_u706B_u5899_u89C4_u5219"><span class="toc-number">1.</span> <span class="toc-text">添加防火墙规则</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#添加防火墙规则"><span class="toc-number">1.</span> <span class="toc-text">添加防火墙规则</span></a></li></ol>
         
     </div>
     <style>

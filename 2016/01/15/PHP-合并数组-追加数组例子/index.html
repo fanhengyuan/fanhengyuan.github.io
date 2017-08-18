@@ -15,16 +15,15 @@
 
 
 
-<meta name="description">
+<meta name="keywords" content="php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP 合并数组 追加数组例子">
 <meta property="og:url" content="http://aiti.me/2016/01/15/PHP-合并数组-追加数组例子/index.html">
 <meta property="og:site_name" content="Fhy的博客">
-<meta property="og:description">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-12-26T02:47:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PHP 合并数组 追加数组例子">
-<meta name="twitter:description">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -49,7 +48,7 @@
     <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css">
 
 
 
@@ -384,14 +383,14 @@
 </code></pre><blockquote>
 <p>array array_merge (array array1 array2…,arrayN)</p>
 </blockquote>
-<h2 id="u4E0B_u9762_u662F_u4E00_u4E2APHP_u5408_u5E76_u6570_u7EC4_u7684_u4F8B_u5B50_uFF1A"><a href="#u4E0B_u9762_u662F_u4E00_u4E2APHP_u5408_u5E76_u6570_u7EC4_u7684_u4F8B_u5B50_uFF1A" class="headerlink" title="下面是一个PHP合并数组的例子："></a>下面是一个PHP合并数组的例子：</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line">	<span class="variable">$fruits</span> = <span class="keyword">array</span>(<span class="string">"apple"</span>,<span class="string">"banana"</span>,<span class="string">"pear"</span>);</span><br><span class="line">	<span class="variable">$numbered</span> = <span class="keyword">array</span>(<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>);</span><br><span class="line">	<span class="variable">$cards</span> = array_merge(<span class="variable">$fruits</span>, <span class="variable">$numbered</span>);</span><br><span class="line">	print_r(<span class="variable">$cards</span>);</span><br><span class="line">	<span class="comment">// 输出结果：</span></span><br><span class="line">	<span class="comment">// Array ( [0] =&gt; apple [1] =&gt; banana [2] =&gt; pear [3] =&gt; 1 [4] =&gt; 2 [5] =&gt; 3 )</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="下面是一个PHP合并数组的例子："><a href="#下面是一个PHP合并数组的例子：" class="headerlink" title="下面是一个PHP合并数组的例子："></a>下面是一个PHP合并数组的例子：</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	$fruits = <span class="keyword">array</span>(<span class="string">"apple"</span>,<span class="string">"banana"</span>,<span class="string">"pear"</span>);</div><div class="line">	$numbered = <span class="keyword">array</span>(<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>);</div><div class="line">	$cards = array_merge($fruits, $numbered);</div><div class="line">	print_r($cards);</div><div class="line">	<span class="comment">// 输出结果：</span></div><div class="line">	<span class="comment">// Array ( [0] =&gt; apple [1] =&gt; banana [2] =&gt; pear [3] =&gt; 1 [4] =&gt; 2 [5] =&gt; 3 )</span></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
 <pre><code>用PHP追加数组，使用array_merge_recursive()，将两个数组合并在一起，注意，与array_merge()函数是不一样的，
 array_merge()的两个数组有重复项时会覆盖掉，而array_merge_recursive()则不会。
 array_merge_recursive()语法：
 </code></pre><blockquote>
 <p>array array_merge_recursive(array array1,array array2[…,array arrayN])</p>
 </blockquote>
-<h2 id="u4E0B_u9762_u662F_u4E00_u4E2APHP_u8FFD_u52A0_u6570_u7EC4_u7684_u4F8B_u5B50_uFF1A"><a href="#u4E0B_u9762_u662F_u4E00_u4E2APHP_u8FFD_u52A0_u6570_u7EC4_u7684_u4F8B_u5B50_uFF1A" class="headerlink" title="下面是一个PHP追加数组的例子："></a>下面是一个PHP追加数组的例子：</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line">	<span class="variable">$fruit1</span> = <span class="keyword">array</span>(<span class="string">"apple"</span> =&gt; <span class="string">"red"</span>, <span class="string">"banana"</span> =&gt; <span class="string">"yellow"</span>);</span><br><span class="line">	<span class="variable">$fruit2</span> = <span class="keyword">array</span>(<span class="string">"pear"</span> =&gt; <span class="string">"yellow"</span>, <span class="string">"apple"</span> =&gt; <span class="string">"green"</span>);</span><br><span class="line">	<span class="variable">$result</span> = array_merge_recursive(<span class="variable">$fruit1</span>, <span class="variable">$fruit2</span>);</span><br><span class="line">	print_r(<span class="variable">$result</span>);</span><br><span class="line">	<span class="comment">// 输出结果：</span></span><br><span class="line">	<span class="comment">// Array ( [apple] =&gt; Array ( [0] =&gt; red [1] =&gt; green ) [banana] =&gt; yellow [pear] =&gt; yellow )</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="下面是一个PHP追加数组的例子："><a href="#下面是一个PHP追加数组的例子：" class="headerlink" title="下面是一个PHP追加数组的例子："></a>下面是一个PHP追加数组的例子：</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	$fruit1 = <span class="keyword">array</span>(<span class="string">"apple"</span> =&gt; <span class="string">"red"</span>, <span class="string">"banana"</span> =&gt; <span class="string">"yellow"</span>);</div><div class="line">	$fruit2 = <span class="keyword">array</span>(<span class="string">"pear"</span> =&gt; <span class="string">"yellow"</span>, <span class="string">"apple"</span> =&gt; <span class="string">"green"</span>);</div><div class="line">	$result = array_merge_recursive($fruit1, $fruit2);</div><div class="line">	print_r($result);</div><div class="line">	<span class="comment">// 输出结果：</span></div><div class="line">	<span class="comment">// Array ( [apple] =&gt; Array ( [0] =&gt; red [1] =&gt; green ) [banana] =&gt; yellow [pear] =&gt; yellow )</span></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
 <p>现在apple 指向一个数组，由两个颜色值组成的索引数组。</p>
 </the>
       
@@ -425,7 +424,7 @@ array_merge_recursive()语法：
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E0B_u9762_u662F_u4E00_u4E2APHP_u5408_u5E76_u6570_u7EC4_u7684_u4F8B_u5B50_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">下面是一个PHP合并数组的例子：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E0B_u9762_u662F_u4E00_u4E2APHP_u8FFD_u52A0_u6570_u7EC4_u7684_u4F8B_u5B50_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">下面是一个PHP追加数组的例子：</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#下面是一个PHP合并数组的例子："><span class="toc-number">1.</span> <span class="toc-text">下面是一个PHP合并数组的例子：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下面是一个PHP追加数组的例子："><span class="toc-number">2.</span> <span class="toc-text">下面是一个PHP追加数组的例子：</span></a></li></ol>
         
     </div>
     <style>

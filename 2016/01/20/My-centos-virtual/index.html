@@ -15,23 +15,20 @@
 
 
 
-<meta name="description" content="/etc/httpd/conf.d
-
-1nameVirtualHost 192.168.1.112:80&amp;#10;&amp;#10;#&amp;#60;VirtualHost *:80&amp;#62;&amp;#10;#    ServerName mycake.com&amp;#10;#    DocumentRoot /var/www/html/cakephp/app/webroot&amp;#10;#&amp;#60;/VirtualHost&amp;">
+<meta name="description" content="/etc/httpd/conf.d  1234567891011121314151617181920212223nameVirtualHost 192.168.1.112:80#&amp;lt;VirtualHost *:80&amp;gt;#    ServerName mycake.com#    DocumentRoot /var/www/html/cakephp/app/webroot#&amp;lt;/Vir">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="My centos virtual">
 <meta property="og:url" content="http://aiti.me/2016/01/20/My-centos-virtual/index.html">
 <meta property="og:site_name" content="Fhy的博客">
-<meta property="og:description" content="/etc/httpd/conf.d
-
-1nameVirtualHost 192.168.1.112:80&amp;#10;&amp;#10;#&amp;#60;VirtualHost *:80&amp;#62;&amp;#10;#    ServerName mycake.com&amp;#10;#    DocumentRoot /var/www/html/cakephp/app/webroot&amp;#10;#&amp;#60;/VirtualHost&amp;">
+<meta property="og:description" content="/etc/httpd/conf.d  1234567891011121314151617181920212223nameVirtualHost 192.168.1.112:80#&amp;lt;VirtualHost *:80&amp;gt;#    ServerName mycake.com#    DocumentRoot /var/www/html/cakephp/app/webroot#&amp;lt;/Vir">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xq5ds.com1.z0.glb.clouddn.com/MycentosVirtual.jpg">
 <meta property="og:updated_time" content="2016-12-26T02:47:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="My centos virtual">
-<meta name="twitter:description" content="/etc/httpd/conf.d
-
-1nameVirtualHost 192.168.1.112:80&amp;#10;&amp;#10;#&amp;#60;VirtualHost *:80&amp;#62;&amp;#10;#    ServerName mycake.com&amp;#10;#    DocumentRoot /var/www/html/cakephp/app/webroot&amp;#10;#&amp;#60;/VirtualHost&amp;">
+<meta name="twitter:description" content="/etc/httpd/conf.d  1234567891011121314151617181920212223nameVirtualHost 192.168.1.112:80#&amp;lt;VirtualHost *:80&amp;gt;#    ServerName mycake.com#    DocumentRoot /var/www/html/cakephp/app/webroot#&amp;lt;/Vir">
+<meta name="twitter:image" content="http://7xq5ds.com1.z0.glb.clouddn.com/MycentosVirtual.jpg">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +53,7 @@
     <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css">
 
 
 
@@ -384,8 +381,8 @@
         <blockquote>
 <p>/etc/httpd/conf.d</p>
 </blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nameVirtualHost 192.168.1.112:80&#10;&#10;#&#60;VirtualHost *:80&#62;&#10;#    ServerName mycake.com&#10;#    DocumentRoot /var/www/html/cakephp/app/webroot&#10;#&#60;/VirtualHost&#62;&#10;&#10;#&#60;Directory &#34;/var/www/html/cakephp/app/webroot&#34;&#62;&#10;#    Options FollowSymLinks&#10;#    AllowOverride All&#10;#    Require all granted&#10;#&#60;/Directory&#62;&#10;&#10;&#60;VirtualHost *:80&#62;&#10;    ServerName 192.168.1.112&#10;    DocumentRoot /var/www/html&#10;&#60;/VirtualHost&#62;&#10;&#10;&#60;Directory &#34;/var/www/html&#34;&#62;&#10;    Options FollowSymLinks&#10;    AllowOverride All&#10;    Require all granted&#10;&#60;/Directory&#62;</span><br></pre></td></tr></table></figure>
-<h1 id="u622A_u56FE_uFF1A"><a href="#u622A_u56FE_uFF1A" class="headerlink" title="截图："></a>截图：</h1><p><img src="http://7xq5ds.com1.z0.glb.clouddn.com/MycentosVirtual.jpg" alt="My centos virtual"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">nameVirtualHost 192.168.1.112:80</div><div class="line"></div><div class="line">#&lt;VirtualHost *:80&gt;</div><div class="line">#    ServerName mycake.com</div><div class="line">#    DocumentRoot /var/www/html/cakephp/app/webroot</div><div class="line">#&lt;/VirtualHost&gt;</div><div class="line"></div><div class="line">#&lt;Directory &quot;/var/www/html/cakephp/app/webroot&quot;&gt;</div><div class="line">#    Options FollowSymLinks</div><div class="line">#    AllowOverride All</div><div class="line">#    Require all granted</div><div class="line">#&lt;/Directory&gt;</div><div class="line"></div><div class="line">&lt;VirtualHost *:80&gt;</div><div class="line">    ServerName 192.168.1.112</div><div class="line">    DocumentRoot /var/www/html</div><div class="line">&lt;/VirtualHost&gt;</div><div class="line"></div><div class="line">&lt;Directory &quot;/var/www/html&quot;&gt;</div><div class="line">    Options FollowSymLinks</div><div class="line">    AllowOverride All</div><div class="line">    Require all granted</div><div class="line">&lt;/Directory&gt;</div></pre></td></tr></table></figure>
+<h1 id="截图："><a href="#截图：" class="headerlink" title="截图："></a>截图：</h1><p><img src="http://7xq5ds.com1.z0.glb.clouddn.com/MycentosVirtual.jpg" alt="My centos virtual"></p>
 
       
     </div>
@@ -418,7 +415,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u622A_u56FE_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">截图：</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#截图："><span class="toc-number">1.</span> <span class="toc-text">截图：</span></a></li></ol>
         
     </div>
     <style>

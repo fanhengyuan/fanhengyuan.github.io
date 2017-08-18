@@ -16,11 +16,13 @@
 
 
 <meta name="description" content="A guide for programming within version control.">
+<meta name="keywords" content="Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git Protocol">
 <meta property="og:url" content="http://aiti.me/2017/02/28/Git-Protocol/index.html">
 <meta property="og:site_name" content="Fhy的博客">
 <meta property="og:description" content="A guide for programming within version control.">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-02-28T03:20:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git Protocol">
@@ -49,7 +51,7 @@
     <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
 
 
-<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="/css/style.css">
 
 
 
@@ -378,14 +380,14 @@
 <the rest="" of="" contents="" |="" 余下全文="">
 
 <p><a href="http://www.ruanyifeng.com/blog/2015/08/git-use-process.html" target="_blank" rel="external">Thank Ruanyifeng</a><br><a href="https://github.com/thoughtbot/guides/tree/master/protocol/git" target="_blank" rel="external">thoughtbot</a></p>
-<h2 id="Maintain_a_Repo"><a href="#Maintain_a_Repo" class="headerlink" title="Maintain a Repo"></a>Maintain a Repo</h2><ul>
+<h2 id="Maintain-a-Repo"><a href="#Maintain-a-Repo" class="headerlink" title="Maintain a Repo"></a>Maintain a Repo</h2><ul>
 <li>Avoid including files in source control that are specific to your<br>development machine or process.</li>
 <li>Delete local and remote feature branches after merging.</li>
 <li>Perform work in a feature branch.</li>
 <li>Rebase frequently to incorporate upstream changes.</li>
 <li>Use a <a href="https://help.github.com/articles/using-pull-requests/" target="_blank" rel="external">pull request</a> for code reviews.</li>
 </ul>
-<h2 id="Write_a_Feature"><a href="#Write_a_Feature" class="headerlink" title="Write a Feature"></a>Write a Feature</h2><p>Create a local feature branch based off master.</p>
+<h2 id="Write-a-Feature"><a href="#Write-a-Feature" class="headerlink" title="Write a Feature"></a>Write a Feature</h2><p>Create a local feature branch based off master.</p>
 <pre><code>git checkout master
 git pull
 git checkout -b &lt;branch-name&gt;
@@ -410,7 +412,7 @@ http://project.management-system.com/ticket/123
 <pre><code>git push origin &lt;branch-name&gt;
 </code></pre><p>Submit a <a href="https://help.github.com/articles/using-pull-requests/" target="_blank" rel="external">GitHub pull request</a>.</p>
 <p>Ask for a code review in the project’s chat room.</p>
-<h2 id="Review_Code"><a href="#Review_Code" class="headerlink" title="Review Code"></a>Review Code</h2><p>A team member other than the author reviews the pull request. They follow<br><a href="/code-review">Code Review</a> guidelines to avoid<br>miscommunication.</p>
+<h2 id="Review-Code"><a href="#Review-Code" class="headerlink" title="Review Code"></a>Review Code</h2><p>A team member other than the author reviews the pull request. They follow<br><a href="/code-review">Code Review</a> guidelines to avoid<br>miscommunication.</p>
 <p>They make comments and ask questions directly on lines of code in the GitHub<br>web interface or in the project’s chat room.</p>
 <p>For changes which they can make themselves, they check out the branch.</p>
 <pre><code>git checkout &lt;branch-name&gt;
@@ -465,7 +467,7 @@ git push
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Maintain_a_Repo"><span class="toc-number">1.</span> <span class="toc-text">Maintain a Repo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Write_a_Feature"><span class="toc-number">2.</span> <span class="toc-text">Write a Feature</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Review_Code"><span class="toc-number">3.</span> <span class="toc-text">Review Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge"><span class="toc-number">4.</span> <span class="toc-text">Merge</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Maintain-a-Repo"><span class="toc-number">1.</span> <span class="toc-text">Maintain a Repo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Write-a-Feature"><span class="toc-number">2.</span> <span class="toc-text">Write a Feature</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Review-Code"><span class="toc-number">3.</span> <span class="toc-text">Review Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merge"><span class="toc-number">4.</span> <span class="toc-text">Merge</span></a></li></ol>
         
     </div>
     <style>
