@@ -445,6 +445,10 @@ span.ua {
 .sskadmin:hover {
   opacity: 1;
 }
+/*Fuck UC AD*/
+#uc_recommend_ad {
+  display: none !important;
+}
 #container {
   min-height: 100%;
 }
